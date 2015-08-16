@@ -41,8 +41,8 @@ public class SsTest {
         homePage.changeLanguage();
         
         homePage.clickLinkWithText("Электротехника");
-        
         homePage.openSearchPage();
+        
         searchPage.expectWebElements();
         searchPage.fillSearchForm("ноутбук", "Рига", "За последний месяц");
         searchPage.submitSearchForm();

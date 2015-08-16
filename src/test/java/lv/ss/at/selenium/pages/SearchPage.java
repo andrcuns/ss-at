@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 @Component
@@ -18,7 +17,6 @@ public class SearchPage extends CommonInAllPages{
     private static final By PERIOD_SELECT = By.name("pr");
     private static final By SEARCH_BUTTON = By.cssSelector("#sbtn");
     private static final By SEARCH_INPUT_NAME = By.xpath("//*[@id='maindv2']/tbody/tr/td/form/table/tbody/tr[2]/td[1]");
-    private static final By PRELOAD_TEXT = By.xpath("//*[@id='preload_txt']");
     
     @Autowired
     BaseFunctions baseFunctions;

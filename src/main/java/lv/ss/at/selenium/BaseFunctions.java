@@ -22,7 +22,7 @@ public class BaseFunctions {
 
     public BaseFunctions() {
 
-        String CHROME_DRIVER = getProperty("os.name").equalsIgnoreCase("windows") ?
+        String CHROME_DRIVER = getProperty("os.name").contains("Windows") ?
                 CHROME_DRIVER_WINDOWS : CHROME_DRIVER_LINUX;
 
         setProperty("webdriver.chrome.driver", CHROME_DRIVER);
