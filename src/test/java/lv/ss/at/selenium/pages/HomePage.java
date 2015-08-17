@@ -15,9 +15,8 @@ public class HomePage extends CommonInAllPages {
 
     public void expectWebElements() {
         expectCommonWebElements();
-        
     }
-    
+
     public void open() {
         baseFunctions.goToUrl(URL);
     }

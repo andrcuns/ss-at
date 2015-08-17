@@ -1,6 +1,7 @@
 package lv.ss.at.selenium;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 import static java.lang.System.getProperty;
 import static java.lang.System.setProperty;
@@ -21,14 +24,12 @@ public class BaseFunctions {
     private static final String CHROME_DRIVER_WINDOWS = "chromedriver.exe";
 
     public BaseFunctions() {
-
         String CHROME_DRIVER = getProperty("os.name").contains("Windows") ?
                 CHROME_DRIVER_WINDOWS : CHROME_DRIVER_LINUX;
 
         setProperty("webdriver.chrome.driver", CHROME_DRIVER);
 
         this.driver = new ChromeDriver();
-
         driver.manage().window().maximize();
     }
 
@@ -69,9 +70,20 @@ public class BaseFunctions {
         webElement.sendKeys(text);
     }
 
+    public void type(By by, Keys key) {
+        waitUntil(visibilityOfElementLocated(by));
+        WebElement webElement = findElement(by);
+        webElement.sendKeys(key);
+    }
+
     public void selectValueInDropDownField(By by, String value) {
         waitUntil(visibilityOfElementLocated(by));
         Select select = new Select(findElement(by));
         select.selectByVisibleText(value);
+    }
+
+    public List<WebElement> findElements(By by) {
+        waitUntil(presenceOfAllElementsLocatedBy(by));
+        return driver.findElements(by);
     }
 }
