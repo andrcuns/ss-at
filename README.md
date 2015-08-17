@@ -1,2 +1,2 @@
 # ss-at
-SS.lv web test project
+SS.lv web acceptance test project
