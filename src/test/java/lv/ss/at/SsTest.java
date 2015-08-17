@@ -60,7 +60,8 @@ public class SsTest {
         homePage.openSearchPage();
 
         searchPage.expectWebElements();
-        searchPage.fillAndSubmitSearchForm("ноутбук", "Рига", "За последний месяц");
+        searchPage.fillSearchForm("ноутбук", "Рига", "За последний месяц");
+        searchPage.submitSearchForm();
 
         searchResultPage.expectWebElements();
         searchResultPage.sortByPrice();
