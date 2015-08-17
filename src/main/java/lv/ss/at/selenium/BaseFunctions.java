@@ -20,8 +20,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class BaseFunctions {
 
     WebDriver driver;
-    private static final String CHROME_DRIVER_LINUX = "chromedriver";
-    private static final String CHROME_DRIVER_WINDOWS = "chromedriver.exe";
+    private static final String CHROME_DRIVER_LINUX = "src/main/resources/chromedriver";
+    private static final String CHROME_DRIVER_WINDOWS = "src/main/resources/chromedriver.exe";
 
     public BaseFunctions() {
         String CHROME_DRIVER = getProperty("os.name").contains("Windows") ?
