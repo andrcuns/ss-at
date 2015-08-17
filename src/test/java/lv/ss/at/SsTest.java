@@ -45,8 +45,11 @@ public class SsTest {
 
     @Test
     public void SsScenario() {
-        List<AdvertisementItemWrapper> selected;
-        List<AdvertisementItemWrapper> selectedShowed;
+        final long MIN_PRICE = 0;
+        final long MAX_PRICE = 300;
+        final int ITEMS_TO_SELECT = 4;
+        List<AdvertisementItemWrapper> selectedItems;
+        List<AdvertisementItemWrapper> showedSelectedItems;
 
         homePage.open();
         homePage.expectWebElements();
@@ -65,19 +68,19 @@ public class SsTest {
         searchResultPage.openAdvancedSearchPage();
 
         searchPage.expectWebElements();
-        searchPage.fillPriceValues(0, 300);
+        searchPage.fillPriceValues(MIN_PRICE, MAX_PRICE);
         searchPage.selectPeriod("За последний месяц");
         searchPage.submitSearchForm();
 
         searchResultPage.expectWebElements();
-        selected = searchResultPage.getRandomAdvertisementItems(4);
-        searchResultPage.selectAdvertisementItems(selected);
+        selectedItems = searchResultPage.getRandomAdvertisementItems(ITEMS_TO_SELECT);
+        searchResultPage.selectAdvertisementItems(selectedItems);
         searchResultPage.showSelectedItems();
 
         showSelectedPage.expectWebElements();
-        selectedShowed = showSelectedPage.getAllAdvertisementItems();
+        showedSelectedItems = showSelectedPage.getAllAdvertisementItems();
 
-        assertThat("Selected items do not match", selected, is(selectedShowed));
+        assertThat("Selected items do not match", selectedItems, is(showedSelectedItems));
     }
 
 }
