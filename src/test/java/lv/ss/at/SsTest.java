@@ -5,7 +5,7 @@ import lv.ss.at.selenium.pages.HomePage;
 import lv.ss.at.selenium.pages.SearchPage;
 import lv.ss.at.selenium.pages.SearchResultPage;
 import lv.ss.at.selenium.pages.ShowSelectedPage;
-import lv.ss.at.selenium.pages.objects.AdvertisementItemWrapper;
+import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

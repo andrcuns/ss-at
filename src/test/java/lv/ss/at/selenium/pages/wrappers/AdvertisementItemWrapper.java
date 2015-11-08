@@ -1,4 +1,4 @@
-package lv.ss.at.selenium.pages.objects;
+package lv.ss.at.selenium.pages.wrappers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

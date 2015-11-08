@@ -8,5 +8,12 @@
 # IntelliJ
 /out/
 
-# Maven
+# Ignore artifacts
+bin/
+buildSrc/
+build/
 target/
+
+### Ignore Gradle files
+.gradle
+.gradle/

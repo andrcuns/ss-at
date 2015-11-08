@@ -1,7 +1,7 @@
 package lv.ss.at.selenium.pages;
 
 import lv.ss.at.selenium.BaseFunctions;
-import lv.ss.at.selenium.pages.objects.AdvertisementItemWrapper;
+import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
