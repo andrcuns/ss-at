@@ -28,9 +28,15 @@ public class BaseFunctions {
                 CHROME_DRIVER_WINDOWS : CHROME_DRIVER_LINUX;
 
         setProperty("webdriver.chrome.driver", CHROME_DRIVER);
+    }
 
+    public void startDriver() {
         this.driver = new ChromeDriver();
         driver.manage().window().maximize();
+    }
+
+    public void stopDriver() {
+        driver.close();
     }
 
     public void goToUrl(String url) {
@@ -38,10 +44,6 @@ public class BaseFunctions {
             url = "http://" + url;
         }
         driver.get(url);
-    }
-
-    public void stopDriver() {
-        driver.close();
     }
 
     public void waitUntil(ExpectedCondition<?> until, long seconds) {

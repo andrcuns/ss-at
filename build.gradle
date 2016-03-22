@@ -21,3 +21,9 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-context', version:'4.2.0.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-test', version:'4.2.0.RELEASE'
 }
+
+test {
+    testLogging {
+        events 'started', 'passed'
+    }
+}
