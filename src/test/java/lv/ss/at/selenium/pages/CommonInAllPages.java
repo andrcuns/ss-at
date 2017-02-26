@@ -8,13 +8,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class CommonInAllPages {
 
-    public static final By LANGUAGE_SELECTOR = By.xpath("//*[@class='menu_lang']/a");
-    public static final By SEARCH = By.xpath(".//*[@id='main_table']//*[contains(@href, '/search/')]");
+    static final By LANGUAGE_SELECTOR = By.xpath("//*[@class='menu_lang']/a");
+    static final By SEARCH = By.xpath(".//*[@id='main_table']//*[contains(@href, '/search/')]");
     
     @Autowired
     BaseFunctions baseFunctions;
     
-    public void expectCommonWebElements() {
+    void expectCommonWebElements() {
         baseFunctions.waitUntil(visibilityOfElementLocated(LANGUAGE_SELECTOR));
         baseFunctions.waitUntil(visibilityOfElementLocated(SEARCH));
     }

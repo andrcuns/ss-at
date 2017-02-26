@@ -6,9 +6,11 @@ import lv.ss.at.selenium.pages.SearchPage;
 import lv.ss.at.selenium.pages.SearchResultPage;
 import lv.ss.at.selenium.pages.ShowSelectedPage;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -38,17 +40,20 @@ public class SsTest {
 
     @Autowired
     BaseFunctions baseFunctions;
-    
+
     @Before
     public void setUp() {
         baseFunctions.startDriver();
     }
 
-    @After
-    public void tearDown() {
-        baseFunctions.stopDriver();
-    }
-    
+    @Rule
+    public TestWatcher closeBrowser = new TestWatcher() {
+        @Override
+        protected void finished(Description description) {
+            baseFunctions.stopDriver();
+        }
+    };
+
     @Test
     public void SsScenario() {
         final long MIN_PRICE = 0;

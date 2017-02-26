@@ -11,6 +11,7 @@ public class HomePage extends CommonInAllPages {
     private static final String URL = "ss.lv";
 
     @Autowired
+    private
     BaseFunctions baseFunctions;
 
     public void expectWebElements() {

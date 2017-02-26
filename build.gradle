@@ -3,27 +3,28 @@ apply plugin: 'maven'
 apply plugin: 'idea'
 
 group = 'ss-at'
-version = '1.0-SNAPSHOT'
-
-description = """"""
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:'2.47.1'
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version:'2.47.1'
-    compile group: 'junit', name: 'junit', version:'4.12'
-    compile group: 'org.springframework', name: 'spring-context', version:'4.2.0.RELEASE'
-    testCompile group: 'org.springframework', name: 'spring-test', version:'4.2.0.RELEASE'
+    ext {
+        selenium_version = '3.0.1'
+        spring_version = '4.3.6.RELEASE'
+    }
+    compile "org.seleniumhq.selenium:selenium-java:$selenium_version"
+    compile "org.seleniumhq.selenium:selenium-chrome-driver:$selenium_version"
+    compile 'junit:junit:4.12'
+    compile "org.springframework:spring-context:$spring_version"
+    compile 'io.github.bonigarcia:webdrivermanager:1.6.0'
+    compile "org.slf4j:slf4j-simple:1.6.1"
+    testCompile "org.springframework:spring-test:$spring_version"
 }
 
 test {
+    systemProperty 'webdriver', project.findProperty('webdriver') ?: 'chrome'
     testLogging {
-        events 'started', 'passed'
+        events 'started', 'passed', 'failed'
     }
 }

@@ -17,12 +17,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class SearchResultPage extends CommonInAllPages {
 
     private static final By SORT_BY_PRICE = By.cssSelector(".a18");
-    private static final By DEAL_TYPE = By.xpath("(//*[@class='filter_sel'])[4]");
+    private static final By DEAL_TYPE = By.xpath("//*[@class='filter_sel']");
     private static final By ADVANCED_SEARCH = By.xpath("//*[@class='td7']//*[@class='a9a']");
     private static final By ADVERTISEMENT_ITEMS = By.xpath("//*[starts-with(@id, 'tr_') and not(contains(@id, 'bnr'))]");
     private static final By SHOW_SELECTED_LINK = By.cssSelector("#show_selected_a");
 
     @Autowired
+    private
     BaseFunctions baseFunctions;
 
     public void expectWebElements() {

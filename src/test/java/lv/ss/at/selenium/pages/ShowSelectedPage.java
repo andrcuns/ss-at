@@ -15,6 +15,7 @@ public class ShowSelectedPage extends CommonInAllPages {
     private static final By ADVERTISEMENT_ITEMS = By.xpath("//*[starts-with(@id, 'tr_') and not(contains(@id, 'bnr'))]");
 
     @Autowired
+    private
     BaseFunctions baseFunctions;
 
     public void expectWebElements() {

@@ -12,15 +12,15 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class SearchPage extends CommonInAllPages {
 
     private static final By SEARCH_INPUT = By.cssSelector("#ptxt");
-    private static final By SEARCH_NAME_FIELD = By.xpath("(//*[@class='td6'])[1]");
     private static final By MIN_PRICE_INPUT = By.xpath("//*[contains(@name, '[min]')]");
     private static final By MAX_PRICE_INPUT = By.xpath("//*[contains(@name, '[max]')]");
     private static final By REGION_SELECT = By.cssSelector("#s_region_select");
     private static final By PERIOD_SELECT = By.name("pr");
     private static final By SEARCH_BUTTON = By.cssSelector("#sbtn");
-    
+
 
     @Autowired
+    private
     BaseFunctions baseFunctions;
 
     public void expectWebElements() {
@@ -38,13 +38,6 @@ public class SearchPage extends CommonInAllPages {
         selectPeriod(period);
         baseFunctions.type(SEARCH_INPUT, searchInput);
         baseFunctions.type(SEARCH_INPUT, ENTER);
-    }
-    
-    public void fillSearchForm(String searchInput, String region, String period) {
-        baseFunctions.selectValueInDropDownField(REGION_SELECT, region);
-        selectPeriod(period);
-        baseFunctions.type(SEARCH_INPUT, searchInput);
-        baseFunctions.click(SEARCH_NAME_FIELD);
     }
 
     public void selectPeriod(String period) {

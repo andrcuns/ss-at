@@ -1,10 +1,13 @@
 package lv.ss.at.selenium;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,20 +22,24 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 @Component
 public class BaseFunctions {
 
-    WebDriver driver;
-    private static final String CHROME_DRIVER_LINUX = "src/main/resources/chromedriver";
-    private static final String CHROME_DRIVER_WINDOWS = "src/main/resources/chromedriver.exe";
+    private WebDriver driver;
 
     public BaseFunctions() {
-        String CHROME_DRIVER = getProperty("os.name").contains("Windows") ?
-                CHROME_DRIVER_WINDOWS : CHROME_DRIVER_LINUX;
-
-        setProperty("webdriver.chrome.driver", CHROME_DRIVER);
     }
 
     public void startDriver() {
-        this.driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        switch (System.getProperty("webdriver", "chrome")) {
+            case "chrome":
+                ChromeDriverManager.getInstance().setup();
+                this.driver = new ChromeDriver();
+                driver.manage().window().maximize();
+                break;
+            case "firefox":
+                FirefoxDriverManager.getInstance().setup();
+                this.driver = new FirefoxDriver();
+                driver.manage().window().maximize();
+                break;
+        }
     }
 
     public void stopDriver() {
