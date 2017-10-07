@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 import static java.lang.System.getProperty;
-import static java.lang.System.setProperty;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 @Component
@@ -27,8 +26,8 @@ public class BaseFunctions {
     public BaseFunctions() {
     }
 
-    public void startDriver() {
-        switch (System.getProperty("webdriver", "chrome")) {
+    public void initDriver() {
+        switch (getProperty("webdriver", "chrome")) {
             case "chrome":
                 ChromeDriverManager.getInstance().setup();
                 this.driver = new ChromeDriver();
@@ -42,8 +41,8 @@ public class BaseFunctions {
         }
     }
 
-    public void stopDriver() {
-        driver.close();
+    public void quit() {
+        driver.quit();
     }
 
     public void goToUrl(String url) {

@@ -8,11 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class HomePage extends CommonInAllPages {
 
-    private static final String URL = "ss.lv";
+    private static final String URL = "ss.com";
 
     @Autowired
-    private
-    BaseFunctions baseFunctions;
+    public HomePage(BaseFunctions baseFunctions) {
+        super(baseFunctions);
+    }
 
     public void expectWebElements() {
         expectCommonWebElements();

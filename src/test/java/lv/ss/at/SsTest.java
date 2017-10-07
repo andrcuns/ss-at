@@ -23,7 +23,6 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
-
 public class SsTest {
 
     @Autowired
@@ -43,14 +42,14 @@ public class SsTest {
 
     @Before
     public void setUp() {
-        baseFunctions.startDriver();
+        baseFunctions.initDriver();
     }
 
     @Rule
     public TestWatcher closeBrowser = new TestWatcher() {
         @Override
         protected void finished(Description description) {
-            baseFunctions.stopDriver();
+            baseFunctions.quit();
         }
     };
 

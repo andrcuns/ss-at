@@ -23,8 +23,9 @@ public class SearchResultPage extends CommonInAllPages {
     private static final By SHOW_SELECTED_LINK = By.cssSelector("#show_selected_a");
 
     @Autowired
-    private
-    BaseFunctions baseFunctions;
+    public SearchResultPage(BaseFunctions baseFunctions) {
+        super(baseFunctions);
+    }
 
     public void expectWebElements() {
         expectCommonWebElements();

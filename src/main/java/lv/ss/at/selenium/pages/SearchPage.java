@@ -18,10 +18,10 @@ public class SearchPage extends CommonInAllPages {
     private static final By PERIOD_SELECT = By.name("pr");
     private static final By SEARCH_BUTTON = By.cssSelector("#sbtn");
 
-
     @Autowired
-    private
-    BaseFunctions baseFunctions;
+    public SearchPage(BaseFunctions baseFunctions) {
+        super(baseFunctions);
+    }
 
     public void expectWebElements() {
         expectCommonWebElements();
