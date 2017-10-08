@@ -1,5 +1,6 @@
 package lv.ss.at.selenium.pages;
 
+import io.qameta.allure.Step;
 import lv.ss.at.selenium.BaseFunctions;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,17 @@ public class HomePage extends CommonInAllPages {
         expectCommonWebElements();
     }
 
+    @Step("Open home page")
     public void open() {
         baseFunctions.goToUrl(URL);
     }
 
+    @Step("Change language")
     public void changeLanguage() {
         baseFunctions.click(LANGUAGE_SELECTOR);
     }
 
+    @Step("Open link by text: {text}")
     public void clickLinkWithText(String text) {
         baseFunctions.click(By.linkText(text));
     }

@@ -1,5 +1,6 @@
 package lv.ss.at.selenium.pages;
 
+import io.qameta.allure.Step;
 import lv.ss.at.selenium.BaseFunctions;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class SearchPage extends CommonInAllPages {
         baseFunctions.waitUntil(visibilityOfElementLocated(SEARCH_BUTTON));
     }
 
+    @Step("Fill search form with input: {searchInput}, region: {region}, period: {period}")
     public void fillAndSubmitSearchForm(String searchInput, String region, String period) {
         baseFunctions.selectValueInDropDownField(REGION_SELECT, region);
         selectPeriod(period);

@@ -2,6 +2,7 @@ package lv.ss.at.cukes.steps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import lv.ss.at.cukes.SpringTest;
 import lv.ss.at.selenium.BaseFunctions;
 import lv.ss.at.selenium.pages.HomePage;
@@ -23,6 +24,10 @@ public class HomePageStepDefs extends SpringTest {
     @Given("^client opens ss.lv home page$")
     public void openHomePage() {
         homePage.open();
+    }
+
+    @Then("^page is opened$")
+    public void isHomePageOpened() {
         homePage.expectWebElements();
     }
 

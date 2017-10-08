@@ -1,5 +1,6 @@
 package lv.ss.at.selenium.pages;
 
+import io.qameta.allure.Step;
 import lv.ss.at.selenium.BaseFunctions;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.openqa.selenium.By;
@@ -34,18 +35,22 @@ public class SearchResultPage extends CommonInAllPages {
         baseFunctions.waitUntil(visibilityOfElementLocated(ADVANCED_SEARCH));
     }
 
+    @Step("Sort by price")
     public void sortByPrice() {
         baseFunctions.click(SORT_BY_PRICE);
     }
 
+    @Step("Select deal type: {dealType}")
     public void selectDealType(String dealType) {
         baseFunctions.selectValueInDropDownField(DEAL_TYPE, dealType);
     }
 
+    @Step("Open advanced search page")
     public void openAdvancedSearchPage() {
         baseFunctions.click(ADVANCED_SEARCH);
     }
 
+    @Step("Show selected items")
     public void showSelectedItems() {
         baseFunctions.click(SHOW_SELECTED_LINK);
     }
@@ -61,6 +66,7 @@ public class SearchResultPage extends CommonInAllPages {
                 .collect(Collectors.toList());
     }
 
+    @Step("Select items")
     public void selectAdvertisementItems(List<AdvertisementItemWrapper> list) {
         list.forEach(AdvertisementItemWrapper::selectItem);
     }

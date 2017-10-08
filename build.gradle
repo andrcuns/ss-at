@@ -1,7 +1,19 @@
-apply plugin: 'java'
-apply plugin: 'idea'
+import net.masterthought.cucumber.ReportBuilder
 
-group = 'ss-at'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "net.masterthought:cucumber-reporting:3.11.0"
+    }
+}
+
+plugins {
+    id 'io.qameta.allure' version '2.4'
+    id 'java'
+    id 'idea'
+}
 
 repositories {
     jcenter()
@@ -16,7 +28,6 @@ ext {
 dependencies {
     compile "org.seleniumhq.selenium:selenium-java:$selenium_version"
     compile "org.seleniumhq.selenium:selenium-chrome-driver:$selenium_version"
-    compile 'junit:junit:4.12'
     compile "org.springframework:spring-context:$spring_version"
     compile 'io.github.bonigarcia:webdrivermanager:1.7.2'
     compile "org.slf4j:slf4j-simple:1.7.25"
@@ -25,11 +36,60 @@ dependencies {
     compile "info.cukes:cucumber-spring:$cucumber_version"
     testCompile "info.cukes:cucumber-junit:$cucumber_version"
     testCompile "org.springframework:spring-test:$spring_version"
+    testCompile 'junit:junit:4.12'
 }
 
-test {
-    systemProperty 'webdriver', project.findProperty('webdriver') ?: 'chrome'
-    testLogging {
-        events 'started', 'passed', 'failed', 'standardOut'
+allure {
+    version = '2.3.5'
+    aspectjweaver = true
+    configuration = 'compile'
+
+    useCucumberJVM {
+        version = '2.0-BETA18'
     }
+}
+
+task runCukeTests(type: Test) {
+    description = 'Geb based UI tests execution in sequence'
+
+    String cucumberTags = project.findProperty('tags') ?: '~@incomplete'
+    String webdriver = project.findProperty('webdriver') ?: 'chrome'
+    String report = project.findProperty('report') ?: 'cucumber'
+    Map reportPlugin = [
+            cucumber: "--plugin json:${reporting.baseDir}/cucumber/features.json",
+            allure  : "--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm",
+            junit   : ""
+    ]
+
+    jvmArgs "-Dwebdriver=${webdriver}", "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]}"
+
+    testLogging {
+        events "standardOut"
+    }
+
+    if (report == 'cucumber') {
+        doLast {
+            generateReport()
+        }
+    }
+}
+
+def generateReport() {
+    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/", include: '**/*.json')
+    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber")
+
+    //Workaround for creating file names that are too long
+    jsonReports.each { File file ->
+        file.text = file.text.replaceAll(/"uri": [^\n\r]*"(.*)"/) { String fullMatch, String uri ->
+            "\"uri\": \"${uri.split('/').last()}\""
+        }
+    }
+
+    List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
+
+    def configuration = new net.masterthought.cucumber.Configuration(reportOutputDirectory, "ss-at")
+
+    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
+    reportBuilder.generateReports()
+    println "\nReport available on: file:///${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
 }

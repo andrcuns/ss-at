@@ -7,6 +7,7 @@ import lv.ss.at.selenium.pages.SearchResultPage;
 import lv.ss.at.selenium.pages.ShowSelectedPage;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestWatcher;
@@ -54,6 +55,7 @@ public class SsTest {
     };
 
     @Test
+    @Ignore
     public void SsScenario() {
         final long MIN_PRICE = 0;
         final long MAX_PRICE = 300;
