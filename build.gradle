@@ -1,52 +1,30 @@
-import net.masterthought.cucumber.ReportBuilder
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath "net.masterthought:cucumber-reporting:3.11.0"
+        classpath "io.qameta.allure:allure-gradle:2.4"
     }
-}
-
-plugins {
-    id 'io.qameta.allure' version '2.4'
-    id 'java'
-    id 'idea'
 }
 
 repositories {
     jcenter()
 }
 
-ext {
-    selenium_version = '3.6.0'
-    spring_version = '5.0.0.RELEASE'
-    cucumber_version = '1.2.5'
-}
+apply plugin: 'java'
+apply plugin: 'idea'
+
+apply from: "${rootDir}/gradle/cuke_reporter.gradle"
+apply from: "${rootDir}/gradle/allure.gradle"
+apply from: "${rootDir}/gradle/dependencies.gradle"
 
 dependencies {
-    compile "org.seleniumhq.selenium:selenium-java:$selenium_version"
-    compile "org.seleniumhq.selenium:selenium-chrome-driver:$selenium_version"
-    compile "org.springframework:spring-context:$spring_version"
-    compile 'io.github.bonigarcia:webdrivermanager:1.7.2'
-    compile "org.slf4j:slf4j-simple:1.7.25"
-    compile "info.cukes:cucumber-core:$cucumber_version"
-    compile "info.cukes:cucumber-java:$cucumber_version"
-    compile "info.cukes:cucumber-spring:$cucumber_version"
-    testCompile "info.cukes:cucumber-junit:$cucumber_version"
-    testCompile "org.springframework:spring-test:$spring_version"
-    testCompile 'junit:junit:4.12'
-}
-
-allure {
-    version = '2.3.5'
-    aspectjweaver = true
-    configuration = 'compile'
-
-    useCucumberJVM {
-        version = '2.0-BETA18'
-    }
+    compile libs.selenium
+    compile libs.logging
+    compile libs.cucumber
+    compile libs.spring
+    compile webdrivermanager
+    testCompile junit
 }
 
 task runCukeTests(type: Test) {
@@ -69,27 +47,7 @@ task runCukeTests(type: Test) {
 
     if (report == 'cucumber') {
         doLast {
-            generateReport()
+            generateCucumberReport()
         }
     }
-}
-
-def generateReport() {
-    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/", include: '**/*.json')
-    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber")
-
-    //Workaround for creating file names that are too long
-    jsonReports.each { File file ->
-        file.text = file.text.replaceAll(/"uri": [^\n\r]*"(.*)"/) { String fullMatch, String uri ->
-            "\"uri\": \"${uri.split('/').last()}\""
-        }
-    }
-
-    List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
-
-    def configuration = new net.masterthought.cucumber.Configuration(reportOutputDirectory, "ss-at")
-
-    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
-    reportBuilder.generateReports()
-    println "\nReport available on: file:///${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
 }

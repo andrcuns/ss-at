@@ -1,0 +1,29 @@
+ext {
+    selenium_version = '3.6.0'
+    spring_version = '5.0.0.RELEASE'
+    cucumber_version = '1.2.5'
+    allure_version = '2.0-BETA19'
+
+    webdrivermanager = 'io.github.bonigarcia:webdrivermanager:1.7.2'
+    junit = 'junit:junit:4.12'
+
+    libs = [
+            selenium: [
+                    "org.seleniumhq.selenium:selenium-java:$selenium_version",
+                    "org.seleniumhq.selenium:selenium-chrome-driver:$selenium_version"
+            ],
+            spring  : [
+                    "org.springframework:spring-context:$spring_version",
+                    "org.springframework:spring-test:$spring_version"
+            ],
+            cucumber: [
+                    "info.cukes:cucumber-core:$cucumber_version",
+                    "info.cukes:cucumber-java:$cucumber_version",
+                    "info.cukes:cucumber-spring:$cucumber_version"
+            ],
+            logging : [
+                    "org.slf4j:slf4j-api:1.7.25",
+                    "ch.qos.logback:logback-classic:1.2.3"
+            ]
+    ]
+}
