@@ -4,14 +4,13 @@ import io.qameta.allure.Step;
 import lv.ss.at.selenium.BaseFunctions;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 @Component
@@ -55,15 +54,20 @@ public class SearchResultPage extends CommonInAllPages {
         baseFunctions.click(SHOW_SELECTED_LINK);
     }
 
-    public List<AdvertisementItemWrapper> getRandomAdvertisementItems(int count) {
-        List<WebElement> elements = baseFunctions.findElements(ADVERTISEMENT_ITEMS);
-        Collections.shuffle(elements);
-
-        return elements.stream()
-                .limit(count)
+    public List<AdvertisementItemWrapper> getAdvertisementItems() {
+        return baseFunctions.findElements(ADVERTISEMENT_ITEMS).stream()
                 .map(AdvertisementItemWrapper::new)
+                .collect(toList());
+    }
+
+    public List<AdvertisementItemWrapper> getRandomAdvertisementItems(int count) {
+        List<AdvertisementItemWrapper> list = getAdvertisementItems();
+        Collections.shuffle(list);
+
+        return list.stream()
+                .limit(count)
                 .sorted()
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Step("Select items")

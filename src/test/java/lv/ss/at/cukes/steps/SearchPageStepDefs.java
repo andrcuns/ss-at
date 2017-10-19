@@ -7,6 +7,7 @@ import lv.ss.at.cukes.SpringTest;
 import lv.ss.at.selenium.pages.HomePage;
 import lv.ss.at.selenium.pages.SearchPage;
 import lv.ss.at.selenium.pages.SearchResultPage;
+import lv.ss.at.selenium.pages.ShowSelectedPage;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SearchPageStepDefs extends SpringTest {
 
@@ -23,6 +25,8 @@ public class SearchPageStepDefs extends SpringTest {
     SearchPage searchPage;
     @Autowired
     SearchResultPage searchResultPage;
+    @Autowired
+    ShowSelectedPage showSelectedPage;
 
     List<AdvertisementItemWrapper> selectedItems;
     List<AdvertisementItemWrapper> shownItems;
@@ -54,9 +58,22 @@ public class SearchPageStepDefs extends SpringTest {
         searchResultPage.showSelectedItems();
     }
 
-    @Then("^only (\\d+) selected elements are shown$")
-    public void only_selected_elements_are_shown(int number) {
-        shownItems = searchResultPage.getRandomAdvertisementItems(number);
+    @Then("^only selected elements are shown$")
+    public void only_selected_elements_are_shown() {
+        shownItems = showSelectedPage.getAllAdvertisementItems();
         assertThat("Shown items do not match previously selected items", selectedItems, is(shownItems));
+    }
+
+    @When("^client enters price range from (\\d+) to (\\d+) and submits form$")
+    public void client_enters_price_range_from_to_and_submits_form(long from, long to) {
+        searchPage.fillPriceValuesAndSubmit(from, to);
+    }
+
+    @Then("^only elements with price (\\d+) to (\\d+) are shown$")
+    public void only_elements_with_price_to_are_shown(int from, int to) {
+        boolean allItemsInPriceRange = searchResultPage.getAdvertisementItems()
+                .stream()
+                .allMatch(item -> item.getItemPrice() >= from && item.getItemPrice() <= to);
+        assertTrue("Not all items are in defined price range", allItemsInPriceRange);
     }
 }

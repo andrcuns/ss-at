@@ -54,4 +54,10 @@ public class SearchPage extends CommonInAllPages {
         baseFunctions.type(MIN_PRICE_INPUT, String.valueOf(minValue));
         baseFunctions.type(MAX_PRICE_INPUT, String.valueOf(maxValue));
     }
+
+    public void fillPriceValuesAndSubmit(long minValue, long maxValue) {
+        baseFunctions.type(MIN_PRICE_INPUT, String.valueOf(minValue));
+        baseFunctions.type(MAX_PRICE_INPUT, String.valueOf(maxValue));
+        baseFunctions.type(MAX_PRICE_INPUT, ENTER);
+    }
 }
