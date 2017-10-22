@@ -1,5 +1,6 @@
 package lv.ss.at.selenium.pages;
 
+import com.google.inject.Inject;
 import lv.ss.at.selenium.BaseFunctions;
 import org.openqa.selenium.By;
 
@@ -10,11 +11,8 @@ public abstract class CommonInAllPages {
     static final By LANGUAGE_SELECTOR = By.xpath("//*[@class='menu_lang']/a");
     static final By SEARCH = By.xpath(".//*[@id='main_table']//*[contains(@href, '/search/')]");
 
-    final BaseFunctions baseFunctions;
-
-    public CommonInAllPages(BaseFunctions baseFunctions) {
-        this.baseFunctions = baseFunctions;
-    }
+    @Inject
+    BaseFunctions baseFunctions;
 
     void expectCommonWebElements() {
         baseFunctions.waitUntil(visibilityOfElementLocated(LANGUAGE_SELECTOR));

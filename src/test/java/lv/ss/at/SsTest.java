@@ -1,5 +1,6 @@
 package lv.ss.at;
 
+import com.google.inject.Inject;
 import lv.ss.at.selenium.BaseFunctions;
 import lv.ss.at.selenium.pages.HomePage;
 import lv.ss.at.selenium.pages.SearchPage;
@@ -13,32 +14,28 @@ import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringConfig.class)
+@RunWith(GuiceJunit4Runner.class)
 public class SsTest {
 
-    @Autowired
+    @Inject
     HomePage homePage;
 
-    @Autowired
+    @Inject
     SearchPage searchPage;
 
-    @Autowired
+    @Inject
     SearchResultPage searchResultPage;
 
-    @Autowired
+    @Inject
     ShowSelectedPage showSelectedPage;
 
-    @Autowired
+    @Inject
     BaseFunctions baseFunctions;
 
     @Before

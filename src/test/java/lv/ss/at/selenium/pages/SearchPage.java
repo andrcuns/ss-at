@@ -1,15 +1,11 @@
 package lv.ss.at.selenium.pages;
 
 import io.qameta.allure.Step;
-import lv.ss.at.selenium.BaseFunctions;
 import org.openqa.selenium.By;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-@Component
 public class SearchPage extends CommonInAllPages {
 
     private static final By SEARCH_INPUT = By.cssSelector("#ptxt");
@@ -18,11 +14,6 @@ public class SearchPage extends CommonInAllPages {
     private static final By REGION_SELECT = By.cssSelector("#s_region_select");
     private static final By PERIOD_SELECT = By.name("pr");
     private static final By SEARCH_BUTTON = By.cssSelector("#sbtn");
-
-    @Autowired
-    public SearchPage(BaseFunctions baseFunctions) {
-        super(baseFunctions);
-    }
 
     public void expectWebElements() {
         expectCommonWebElements();

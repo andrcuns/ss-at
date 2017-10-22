@@ -18,12 +18,18 @@ apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 apply from: "${rootDir}/gradle/allure.gradle"
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
+idea {
+    project {
+        languageLevel = "1.8"
+    }
+}
+
 dependencies {
-    compile libs.selenium
-    compile libs.logging
-    compile libs.cucumber
-    compile libs.spring
-    compile webdrivermanager
+    testCompile libs.selenium
+    testCompile libs.logging
+    testCompile libs.cucumber
+    testCompile webdrivermanager
+    testCompile guice
     testCompile junit
 }
 

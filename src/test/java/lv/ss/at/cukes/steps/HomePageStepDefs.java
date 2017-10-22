@@ -1,25 +1,17 @@
 package lv.ss.at.cukes.steps;
 
+import com.google.inject.Inject;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import lv.ss.at.cukes.SpringTest;
-import lv.ss.at.selenium.BaseFunctions;
+import cucumber.runtime.java.guice.ScenarioScoped;
 import lv.ss.at.selenium.pages.HomePage;
-import lv.ss.at.selenium.pages.SearchPage;
-import lv.ss.at.selenium.pages.SearchResultPage;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class HomePageStepDefs extends SpringTest {
+@ScenarioScoped
+public class HomePageStepDefs {
 
-    @Autowired
-    BaseFunctions baseFunctions;
-    @Autowired
+    @Inject
     HomePage homePage;
-    @Autowired
-    SearchPage searchPage;
-    @Autowired
-    SearchResultPage searchResultPage;
 
     @Given("^client opens ss.lv home page$")
     public void openHomePage() {

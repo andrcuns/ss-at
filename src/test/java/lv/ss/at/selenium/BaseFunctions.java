@@ -11,20 +11,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.stereotype.Component;
 
+import javax.inject.Singleton;
 import java.util.List;
 
 import static java.lang.System.getProperty;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-@Component
+@Singleton
 public class BaseFunctions {
 
     private WebDriver driver;
-
-    public BaseFunctions() {
-    }
 
     public void initDriver() {
         switch (getProperty("webdriver", "chrome")) {

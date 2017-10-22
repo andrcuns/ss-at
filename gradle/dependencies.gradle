@@ -6,20 +6,18 @@ ext {
 
     webdrivermanager = 'io.github.bonigarcia:webdrivermanager:1.7.2'
     junit = 'junit:junit:4.12'
+    guice = 'com.google.inject:guice:4.1.0'
 
     libs = [
             selenium: [
                     "org.seleniumhq.selenium:selenium-java:$selenium_version",
                     "org.seleniumhq.selenium:selenium-chrome-driver:$selenium_version"
             ],
-            spring  : [
-                    "org.springframework:spring-context:$spring_version",
-                    "org.springframework:spring-test:$spring_version"
-            ],
             cucumber: [
                     "info.cukes:cucumber-core:$cucumber_version",
                     "info.cukes:cucumber-java:$cucumber_version",
-                    "info.cukes:cucumber-spring:$cucumber_version"
+                    "info.cukes:cucumber-junit:$cucumber_version",
+                    "info.cukes:cucumber-guice:$cucumber_version"
             ],
             logging : [
                     "org.slf4j:slf4j-api:1.7.25",

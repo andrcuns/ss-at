@@ -1,11 +1,8 @@
 package lv.ss.at.selenium.pages;
 
 import io.qameta.allure.Step;
-import lv.ss.at.selenium.BaseFunctions;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.openqa.selenium.By;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +10,6 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-@Component
 public class SearchResultPage extends CommonInAllPages {
 
     private static final By SORT_BY_PRICE = By.cssSelector(".a18");
@@ -21,11 +17,6 @@ public class SearchResultPage extends CommonInAllPages {
     private static final By ADVANCED_SEARCH = By.xpath("//*[@class='td7']//*[@class='a9a']");
     private static final By ADVERTISEMENT_ITEMS = By.xpath("//*[starts-with(@id, 'tr_') and not(contains(@id, 'bnr'))]");
     private static final By SHOW_SELECTED_LINK = By.cssSelector("#show_selected_a");
-
-    @Autowired
-    public SearchResultPage(BaseFunctions baseFunctions) {
-        super(baseFunctions);
-    }
 
     public void expectWebElements() {
         expectCommonWebElements();

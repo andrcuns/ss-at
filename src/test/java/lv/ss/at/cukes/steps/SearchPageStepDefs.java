@@ -1,15 +1,15 @@
 package lv.ss.at.cukes.steps;
 
+import com.google.inject.Inject;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import lv.ss.at.cukes.SpringTest;
+import cucumber.runtime.java.guice.ScenarioScoped;
 import lv.ss.at.selenium.pages.HomePage;
 import lv.ss.at.selenium.pages.SearchPage;
 import lv.ss.at.selenium.pages.SearchResultPage;
 import lv.ss.at.selenium.pages.ShowSelectedPage;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -17,15 +17,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class SearchPageStepDefs extends SpringTest {
+@ScenarioScoped
+public class SearchPageStepDefs {
 
-    @Autowired
+    @Inject
     HomePage homePage;
-    @Autowired
+    @Inject
     SearchPage searchPage;
-    @Autowired
+    @Inject
     SearchResultPage searchResultPage;
-    @Autowired
+    @Inject
     ShowSelectedPage showSelectedPage;
 
     List<AdvertisementItemWrapper> selectedItems;
