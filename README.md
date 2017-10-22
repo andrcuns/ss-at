@@ -1,5 +1,5 @@
 # ss-at
-Sample UI testing project using guice, junit4, gradle, cucumber-jvm and allure or cucumber reporting.
+Sample UI testing project using guice, gradle, cucumber-jvm and allure or cucumber reporting.
 
 ## Running tests from command line
 Tests can be executed with following command:

@@ -1,42 +1,24 @@
 package lv.ss.at.selenium;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import com.google.inject.Inject;
+import cucumber.runtime.java.guice.ScenarioScoped;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.inject.Singleton;
 import java.util.List;
 
-import static java.lang.System.getProperty;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-@Singleton
+@ScenarioScoped
 public class BaseFunctions {
 
+    @Inject
     private WebDriver driver;
-
-    public void initDriver() {
-        switch (getProperty("webdriver", "chrome")) {
-            case "chrome":
-                ChromeDriverManager.getInstance().setup();
-                this.driver = new ChromeDriver();
-                driver.manage().window().maximize();
-                break;
-            case "firefox":
-                FirefoxDriverManager.getInstance().setup();
-                this.driver = new FirefoxDriver();
-                driver.manage().window().maximize();
-                break;
-        }
-    }
 
     public void quit() {
         driver.quit();

@@ -33,9 +33,7 @@ dependencies {
     testCompile junit
 }
 
-task runCukeTests(type: Test) {
-    description = 'Geb based UI tests execution in sequence'
-
+test {
     String cucumberTags = project.findProperty('tags') ?: '~@incomplete'
     String webdriver = project.findProperty('webdriver') ?: 'chrome'
     String report = project.findProperty('report') ?: 'cucumber'
