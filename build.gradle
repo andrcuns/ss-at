@@ -39,7 +39,7 @@ task runCukeTests(type: Test) {
             junit   : ""
     ]
 
-    jvmArgs "-Dwebdriver=${webdriver}", "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]}"
+    jvmArgs "-Dwebdriver=${webdriver}", "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
 
     testLogging {
         events "standardOut"

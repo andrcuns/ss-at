@@ -1,0 +1,6 @@
+<aspectj>
+    <weaver options="-Xset:weaveJavaxPackages=true">
+        <include within="lv.ss.at..*"/>
+        <include within="io.qameta.allure..*"/>
+    </weaver>
+</aspectj>
