@@ -13,6 +13,7 @@ repositories {
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'checkstyle'
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 apply from: "${rootDir}/gradle/allure.gradle"
@@ -54,4 +55,8 @@ test {
             generateCucumberReport()
         }
     }
+}
+
+checkstyle {
+    toolVersion = '8.3'
 }
