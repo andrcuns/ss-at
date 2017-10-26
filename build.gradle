@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath "io.qameta.allure:allure-gradle:2.4"
+        classpath "net.masterthought:cucumber-reporting:3.11.0"
     }
 }
 
@@ -32,25 +33,28 @@ dependencies {
     testCompile webdrivermanager
     testCompile guice
     testCompile junit
+    testCompile selenide
 }
 
 test {
     String cucumberTags = project.findProperty('tags') ?: '~@incomplete'
-    String webdriver = project.findProperty('webdriver') ?: 'chrome'
     String report = project.findProperty('report') ?: 'cucumber'
     Map reportPlugin = [
-            cucumber: "--plugin json:${reporting.baseDir}/cucumber/features.json",
-            allure  : "--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm",
-            junit   : ""
+            cucumberHtml: "--plugin json:${reporting.baseDir}/cucumber/features.json",
+            allure      : "--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm",
+            cucumber    : "--plugin html:build/cucumber"
     ]
+    List jvmArgList = [
+            "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
+    ] + System.properties.collect { k, v -> "-D$k=$v" }
 
-    jvmArgs "-Dwebdriver=${webdriver}", "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
+    jvmArgs = jvmArgList
 
     testLogging {
         events "standardOut"
     }
 
-    if (report == 'cucumber') {
+    if (report == 'cucumberHtml') {
         doLast {
             generateCucumberReport()
         }

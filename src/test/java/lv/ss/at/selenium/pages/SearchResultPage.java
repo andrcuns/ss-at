@@ -1,5 +1,7 @@
 package lv.ss.at.selenium.pages;
 
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lv.ss.at.selenium.pages.wrappers.AdvertisementItemWrapper;
 import org.openqa.selenium.By;
@@ -7,48 +9,33 @@ import org.openqa.selenium.By;
 import java.util.Collections;
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static java.util.stream.Collectors.toList;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class SearchResultPage extends CommonInAllPages {
 
-    private static final By SORT_BY_PRICE = By.cssSelector(".a18");
-    private static final By DEAL_TYPE = By.xpath("//*[@class='filter_sel']");
-    private static final By ADVANCED_SEARCH = By.xpath("//*[@class='td7']//*[@class='a9a']");
-    private static final By ADVERTISEMENT_ITEMS = By.xpath("//*[starts-with(@id, 'tr_') and not(contains(@id, 'bnr'))]");
-    private static final By SHOW_SELECTED_LINK = By.cssSelector("#show_selected_a");
+    private SelenideElement sortByPrice = $(By.cssSelector(".a18"));
+    private SelenideElement dealType = $(By.xpath("//*[@class='filter_sel']"));
+    private SelenideElement advancedSearch = $(By.xpath("//*[@class='td7']//*[@class='a9a']"));
+    private SelenideElement showSelectedLink = $(By.cssSelector("#show_selected_a"));
+    private ElementsCollection advertisementItems = $$(By.xpath("//*[starts-with(@id, 'tr_') and not(contains(@id, 'bnr'))]"));
 
     public void expectWebElements() {
         expectCommonWebElements();
-        baseFunctions.waitUntil(visibilityOfElementLocated(SORT_BY_PRICE));
-        baseFunctions.waitUntil(visibilityOfElementLocated(DEAL_TYPE));
-        baseFunctions.waitUntil(visibilityOfElementLocated(ADVANCED_SEARCH));
-    }
-
-    @Step("Sort by price")
-    public void sortByPrice() {
-        baseFunctions.click(SORT_BY_PRICE);
-    }
-
-    @Step("Select deal type: {dealType}")
-    public void selectDealType(String dealType) {
-        baseFunctions.selectValueInDropDownField(DEAL_TYPE, dealType);
-    }
-
-    @Step("Open advanced search page")
-    public void openAdvancedSearchPage() {
-        baseFunctions.click(ADVANCED_SEARCH);
+        sortByPrice.isDisplayed();
+        dealType.isDisplayed();
+        advancedSearch.isDisplayed();
     }
 
     @Step("Show selected items")
     public void showSelectedItems() {
-        baseFunctions.click(SHOW_SELECTED_LINK);
+        showSelectedLink.click();
     }
 
-    public List<AdvertisementItemWrapper> getAdvertisementItems() {
-        return baseFunctions.findElements(ADVERTISEMENT_ITEMS).stream()
-                .map(AdvertisementItemWrapper::new)
-                .collect(toList());
+    @Step("Select items")
+    public void selectAdvertisementItems(List<AdvertisementItemWrapper> list) {
+        list.forEach(AdvertisementItemWrapper::selectItem);
     }
 
     public List<AdvertisementItemWrapper> getRandomAdvertisementItems(int count) {
@@ -61,8 +48,9 @@ public class SearchResultPage extends CommonInAllPages {
                 .collect(toList());
     }
 
-    @Step("Select items")
-    public void selectAdvertisementItems(List<AdvertisementItemWrapper> list) {
-        list.forEach(AdvertisementItemWrapper::selectItem);
+    public List<AdvertisementItemWrapper> getAdvertisementItems() {
+        return advertisementItems.stream()
+                .map(AdvertisementItemWrapper::new)
+                .collect(toList());
     }
 }

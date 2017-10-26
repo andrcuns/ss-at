@@ -1,28 +1,28 @@
 package lv.ss.at.selenium.pages.wrappers;
 
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import static java.lang.Long.valueOf;
 
 public class AdvertisementItemWrapper implements Comparable {
 
-    private WebElement webElement;
+    private SelenideElement selenideElement;
     private String elementId;
-    private static final By CHECKBOX = By.xpath(".//*[@type='checkbox']");
-    private static final By PRICE = By.cssSelector("td:nth-of-type(7) .amopt");
+    private By checkbox = By.xpath(".//*[@type='checkbox']");
+    private By price = By.cssSelector("td:nth-of-type(7) .amopt");
 
-    public AdvertisementItemWrapper(WebElement webElement) {
-        this.webElement = webElement;
-        this.elementId = webElement.getAttribute("id");
+    public AdvertisementItemWrapper(SelenideElement selenideElement) {
+        this.selenideElement = selenideElement;
+        this.elementId = selenideElement.getAttribute("id");
     }
 
     public void selectItem() {
-        webElement.findElement(CHECKBOX).click();
+        selenideElement.find(checkbox).click();
     }
 
     public long getItemPrice() {
-        return valueOf(webElement.findElement(PRICE).getText().replace(" €", ""));
+        return valueOf(selenideElement.findElement(price).getText().replace(" €", ""));
     }
 
 

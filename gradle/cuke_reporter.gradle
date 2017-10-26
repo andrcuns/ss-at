@@ -1,4 +1,5 @@
 import net.masterthought.cucumber.ReportBuilder
+import net.masterthought.cucumber.Configuration
 
 buildscript {
     repositories {
@@ -22,7 +23,7 @@ ext.generateCucumberReport = {
 
     List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
 
-    def configuration = new net.masterthought.cucumber.Configuration(reportOutputDirectory, "ss-at")
+    def configuration = new Configuration(reportOutputDirectory, "ss-at")
 
     ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
     reportBuilder.generateReports()

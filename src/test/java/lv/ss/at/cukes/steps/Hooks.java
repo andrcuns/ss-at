@@ -1,18 +1,21 @@
 package lv.ss.at.cukes.steps;
 
-import com.google.inject.Inject;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
-import cucumber.runtime.java.guice.ScenarioScoped;
-import lv.ss.at.selenium.BaseFunctions;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
-@ScenarioScoped
+import static com.codeborne.selenide.WebDriverRunner.*;
+
 public class Hooks {
 
-    @Inject
-    BaseFunctions baseFunctions;
-
     @After
-    public void tearDown() {
-        baseFunctions.quit();
+    public void cleanUp(Scenario scenario) {
+        clearBrowserCache();
+        if (scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.embed(screenshot, "image/png");
+            closeWebDriver();
+        }
     }
 }

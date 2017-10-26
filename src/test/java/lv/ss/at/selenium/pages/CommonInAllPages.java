@@ -1,25 +1,21 @@
 package lv.ss.at.selenium.pages;
 
-import com.google.inject.Inject;
-import lv.ss.at.selenium.BaseFunctions;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static com.codeborne.selenide.Selenide.$;
 
 public abstract class CommonInAllPages {
 
-    static final By LANGUAGE_SELECTOR = By.xpath("//*[@class='menu_lang']/a");
-    static final By SEARCH = By.xpath(".//*[@id='main_table']//*[contains(@href, '/search/')]");
-
-    @Inject
-    BaseFunctions baseFunctions;
+    private SelenideElement search = $(By.xpath(".//*[@id='main_table']//*[contains(@href, '/search/')]"));
+    SelenideElement languageSelector = $(By.xpath("//*[@class='menu_lang']/a"));
 
     void expectCommonWebElements() {
-        baseFunctions.waitUntil(visibilityOfElementLocated(LANGUAGE_SELECTOR));
-        baseFunctions.waitUntil(visibilityOfElementLocated(SEARCH));
+        languageSelector.isDisplayed();
+        search.isDisplayed();
     }
 
     public void openSearchPage() {
-        baseFunctions.click(SEARCH);
+        search.click();
     }
 }

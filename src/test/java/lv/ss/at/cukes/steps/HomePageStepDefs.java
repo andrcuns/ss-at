@@ -15,7 +15,7 @@ public class HomePageStepDefs {
 
     @Given("^client opens ss.lv home page$")
     public void openHomePage() {
-        homePage.open();
+        homePage.openPage();
     }
 
     @Then("^page is opened$")
