@@ -4,7 +4,6 @@ ext {
     cucumber_version = '1.2.5'
     allure_version = '2.0-BETA19'
 
-    webdrivermanager = 'io.github.bonigarcia:webdrivermanager:1.7.2'
     junit = 'junit:junit:4.12'
     guice = 'com.google.inject:guice:4.1.0'
     selenide = 'com.codeborne:selenide:4.8'

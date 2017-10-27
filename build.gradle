@@ -29,7 +29,6 @@ idea {
 dependencies {
     testCompile libs.logging
     testCompile libs.cucumber
-    testCompile webdrivermanager
     testCompile guice
     testCompile junit
     testCompile selenide
@@ -54,8 +53,12 @@ test {
     testLogging {
         showStandardStreams = true
     }
+
+    //don't take test task output from cache
+    outputs.upToDateWhen { false }
 }
 
 checkstyle {
     toolVersion = '8.3'
+    configDir = new File("${rootDir}/gradle/config/checkstyle")
 }

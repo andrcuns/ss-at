@@ -12,7 +12,6 @@ To generate and open allure report after running test with allure report type fo
 ./gradlew downloadAllure allureServe
 ```
 To generate cucumber html report after running tests with cucumber report type following command can be used:
-```
-bash
+```bash
 ./gradlew generateCucumberReport
 ```
