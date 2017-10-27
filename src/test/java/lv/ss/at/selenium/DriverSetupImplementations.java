@@ -4,21 +4,27 @@ import com.codeborne.selenide.Configuration;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
+import static java.lang.System.getProperty;
+
 public enum DriverSetupImplementations {
     CHROME {
         @Override
-        public void setUpDriver() {
+        void setUpDriver() {
             ChromeDriverManager.getInstance().setup();
             Configuration.browser = "chrome";
         }
     },
     FIREFOX {
         @Override
-        public void setUpDriver() {
+        void setUpDriver() {
             FirefoxDriverManager.getInstance().setup();
             Configuration.browser = "firefox";
         }
     };
 
-    public abstract void setUpDriver();
+    abstract void setUpDriver();
+
+    public static void setUpCorrectDriver() {
+        valueOf(getProperty("browser", "chrome").toUpperCase()).setUpDriver();
+    }
 }

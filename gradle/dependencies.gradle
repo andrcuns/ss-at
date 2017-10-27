@@ -10,10 +10,6 @@ ext {
     selenide = 'com.codeborne:selenide:4.8'
 
     libs = [
-            selenium: [
-                    "org.seleniumhq.selenium:selenium-java:$selenium_version",
-                    "org.seleniumhq.selenium:selenium-chrome-driver:$selenium_version"
-            ],
             cucumber: [
                     "info.cukes:cucumber-core:$cucumber_version",
                     "info.cukes:cucumber-java:$cucumber_version",

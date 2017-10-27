@@ -10,22 +10,25 @@ buildscript {
     }
 }
 
-ext.generateCucumberReport = {
-    def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/", include: '**/*.json')
-    File reportOutputDirectory = new File("${reporting.baseDir}/cucumber")
+task generateCucumberReport {
+    description = "Generate cucumber HTML reports"
+    doLast {
+        def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/", include: '**/*.json')
+        File reportOutputDirectory = new File("${reporting.baseDir}/cucumber")
 
-    //Workaround for creating file names that are too long
-    jsonReports.each { File file ->
-        file.text = file.text.replaceAll(/"uri": [^\n\r]*"(.*)"/) { String fullMatch, String uri ->
-            "\"uri\": \"${uri.split('/').last()}\""
+        //Workaround for creating file names that are too long
+        jsonReports.each { File file ->
+            file.text = file.text.replaceAll(/"uri": [^\n\r]*"(.*)"/) { String fullMatch, String uri ->
+                "\"uri\": \"${uri.split('/').last()}\""
+            }
         }
+
+        List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
+
+        def configuration = new Configuration(reportOutputDirectory, "ss-at")
+
+        ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
+        reportBuilder.generateReports()
+        println "\nReport available on: file:///${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
     }
-
-    List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
-
-    def configuration = new Configuration(reportOutputDirectory, "ss-at")
-
-    ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
-    reportBuilder.generateReports()
-    println "\nReport available on: file:///${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
 }

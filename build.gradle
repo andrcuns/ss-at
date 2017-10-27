@@ -27,7 +27,6 @@ idea {
 }
 
 dependencies {
-    testCompile libs.selenium
     testCompile libs.logging
     testCompile libs.cucumber
     testCompile webdrivermanager
@@ -36,13 +35,15 @@ dependencies {
     testCompile selenide
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 test {
     String cucumberTags = project.findProperty('tags') ?: '~@incomplete'
     String report = project.findProperty('report') ?: 'cucumber'
     Map reportPlugin = [
-            cucumberHtml: "--plugin json:${reporting.baseDir}/cucumber/features.json",
             allure      : "--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm",
-            cucumber    : "--plugin html:build/cucumber"
+            cucumber    : "--plugin json:${reporting.baseDir}/cucumber/features.json"
     ]
     List jvmArgList = [
             "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
@@ -51,13 +52,7 @@ test {
     jvmArgs = jvmArgList
 
     testLogging {
-        events "standardOut"
-    }
-
-    if (report == 'cucumberHtml') {
-        doLast {
-            generateCucumberReport()
-        }
+        showStandardStreams = true
     }
 }
 
