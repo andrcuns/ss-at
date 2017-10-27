@@ -18,7 +18,7 @@ public enum DriverSetupImplementations {
         @Override
         void setUpDriver() {
             FirefoxDriverManager.getInstance().setup();
-            Configuration.browser = "firefox";
+            Configuration.browser = "marionette";
         }
     };
 
