@@ -2,10 +2,10 @@ apply plugin: 'io.qameta.allure'
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
 allure {
-    version = '2.4.1'
+    version = allure_version
     aspectjweaver = true
 
     useCucumberJVM {
-        version = allure_version
+        version = allure_java_version
     }
 }

@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "net.masterthought:cucumber-reporting:3.11.0"
+        classpath "net.masterthought:cucumber-reporting:3.13.0"
     }
 }
 
