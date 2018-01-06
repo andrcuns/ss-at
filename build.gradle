@@ -38,7 +38,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 test {
-    String cucumberTags = project.findProperty('tags') ?: 'not @incomplete'
+    String cucumberTags = project.findProperty('tags') ?: "'not @incomplete'"
     String report = project.findProperty('report') ?: 'cucumber'
     Map reportPlugin = [
             allure      : "--plugin io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
