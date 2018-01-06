@@ -11,7 +11,7 @@ repositories {
     jcenter()
 }
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'checkstyle'
 
@@ -26,21 +26,22 @@ idea {
 }
 
 dependencies {
-    testCompile libs.logging
-    testCompile libs.cucumber
-    testCompile guice
-    testCompile junit
-    testCompile selenide
+    testImplementation libs.logging
+    testImplementation libs.cucumber
+    testImplementation libs.allure
+    testImplementation guice
+    testImplementation junit
+    testImplementation selenide
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 test {
-    String cucumberTags = project.findProperty('tags') ?: '~@incomplete'
+    String cucumberTags = project.findProperty('tags') ?: 'not @incomplete'
     String report = project.findProperty('report') ?: 'cucumber'
     Map reportPlugin = [
-            allure      : "--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm",
+            allure      : "--plugin io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
             cucumber    : "--plugin json:${reporting.baseDir}/cucumber/features.json"
     ]
     List jvmArgList = [

@@ -1,6 +1,5 @@
 ext {
-    spring_version = '5.0.0.RELEASE'
-    cucumber_version = '1.2.5'
+    cucumber_version = '2.3.1'
     allure_java_version = '2.0-BETA21'
     allure_version = '2.4.1'
 
@@ -10,14 +9,18 @@ ext {
 
     libs = [
             cucumber: [
-                    "info.cukes:cucumber-core:$cucumber_version",
-                    "info.cukes:cucumber-java:$cucumber_version",
-                    "info.cukes:cucumber-junit:$cucumber_version",
-                    "info.cukes:cucumber-guice:$cucumber_version"
+                    "io.cucumber:cucumber-core:$cucumber_version",
+                    "io.cucumber:cucumber-java:$cucumber_version",
+                    "io.cucumber:cucumber-junit:$cucumber_version",
+                    "io.cucumber:cucumber-guice:$cucumber_version"
             ],
             logging : [
                     "org.slf4j:slf4j-api:1.7.25",
                     "ch.qos.logback:logback-classic:1.2.3"
+            ],
+            allure  : [
+                    "io.qameta.allure:allure-java-commons:$allure_java_version",
+                    "io.qameta.allure:allure-cucumber2-jvm:$allure_java_version",
             ]
     ]
 }
