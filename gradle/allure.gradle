@@ -4,8 +4,4 @@ apply from: "${rootDir}/gradle/dependencies.gradle"
 allure {
     version = allure_version
     aspectjweaver = true
-
-    useCucumberJVM {
-        version = allure_java_version
-    }
 }
