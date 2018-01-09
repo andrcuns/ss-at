@@ -19,7 +19,6 @@ apply plugin: 'idea'
 apply plugin: 'checkstyle'
 apply plugin: 'com.commercehub.cucumber-jvm'
 
-apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 apply from: "${rootDir}/gradle/allure.gradle"
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
