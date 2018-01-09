@@ -9,9 +9,9 @@ A sample UI testing project using following tech stack:
 ## Running tests from command line
 Tests can be executed with following command:
 ```bash
-./gradlew clean test -Preport=cucumber|allure
+./gradlew clean test -PparallelForks=3
 ```
-Default report is `cucumber`.
+`parallelForks`: sets the number of parallel threads to execute tests, `3` by default.
 
 ## Reporting
 * [Cucumber](https://github.com/damianszczepanik/cucumber-reporting) - prettified native cucumber report
@@ -23,8 +23,4 @@ Current allure report published by travis is available through [Github Pages](ht
 To generate and open allure report after running test with allure report type following command can be used:
 ```bash
 ./gradlew downloadAllure allureServe
-```
-To generate cucumber html report after running tests with cucumber report type following command can be used:
-```bash
-./gradlew generateCucumberReport
 ```

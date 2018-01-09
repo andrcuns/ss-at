@@ -1,19 +1,23 @@
 buildscript {
     repositories {
         jcenter()
+        mavenLocal()
     }
     dependencies {
         classpath "io.qameta.allure:allure-gradle:2.5"
+        classpath "com.commercehub:gradle-cucumber-jvm-plugin:0.12"
     }
 }
 
 repositories {
     jcenter()
+    mavenLocal()
 }
 
 apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'checkstyle'
+apply plugin: 'com.commercehub.cucumber-jvm'
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 apply from: "${rootDir}/gradle/allure.gradle"
@@ -25,37 +29,38 @@ idea {
     }
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+Closure getMaxParallelForks = {
+    int parallelForks = project.hasProperty('parallelForks') ? parallelForks as int : 3
+    int processorCores = Runtime.getRuntime().availableProcessors()
+
+    parallelForks > processorCores ? processorCores : parallelForks
+}
+
+addCucumberSuite 'test'
+
+cucumber {
+    maxParallelForks = getMaxParallelForks()
+}
+
 dependencies {
-    testImplementation libs.logging
-    testImplementation libs.cucumber
-    testImplementation libs.allure
+    testImplementation logger_libs
+    testImplementation cucumber_libs
+    testImplementation allure_libs
     testImplementation guice
     testImplementation junit
     testImplementation selenide
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 test {
-    String cucumberTags = project.findProperty('tags') ?: "'not @incomplete'"
-    String report = project.findProperty('report') ?: 'cucumber'
-    Map reportPlugin = [
-            allure      : "--plugin io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
-            cucumber    : "--plugin json:${reporting.baseDir}/cucumber/features.json"
-    ]
-    List jvmArgList = [
-            "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
-    ] + System.properties.collect { k, v -> "-D$k=$v" }
+    group = "verification"
+    description = "Run cucumber tests in parallel"
 
-    jvmArgs = jvmArgList
-
-    testLogging {
-        showStandardStreams = true
-    }
-
-    //don't take test task output from cache
-    outputs.upToDateWhen { false }
+    stepDefinitionRoots = ['lv/ss/at/cukes/steps']
+    featureRoots = ['lv/ss/at/cukes/features']
+    tags = project.hasProperty('tags') ? project.properties['tags'].split(',') : ['~@disabled']
 }
 
 checkstyle {
