@@ -59,7 +59,7 @@ test {
 
     stepDefinitionRoots = ['lv/ss/at/cukes/steps']
     featureRoots = ['lv/ss/at/cukes/features']
-    tags = project.hasProperty('tags') ? project.properties['tags'].split(',') : ['~@disabled']
+    tags = project.hasProperty('tags') ? ["${project.properties.tags} and (not @disabled)"] : ['@all and (not @disabled)']
 }
 
 checkstyle {

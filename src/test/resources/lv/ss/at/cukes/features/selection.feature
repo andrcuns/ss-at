@@ -1,4 +1,4 @@
-@selection @disabled
+@all @selection
 Feature: Client is able to open selected elements
 
   Scenario: Client is able to see selected elements in separate view
