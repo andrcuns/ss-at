@@ -6,6 +6,7 @@ ext {
     junit = 'junit:junit:4.12'
     guice = 'com.google.inject:guice:4.1.0'
     selenide = 'com.codeborne:selenide:4.9.1'
+    aspectjweaver = 'org.aspectj:aspectjweaver:1.8.13'
 
     cucumber_libs = [
             "io.cucumber:cucumber-core:$cucumber_version",
