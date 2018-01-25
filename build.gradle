@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "io.qameta.allure:allure-gradle:2.5"
-        classpath "com.commercehub:gradle-cucumber-jvm-plugin:0.12"
+        classpath "com.commercehub:gradle-cucumber-jvm-plugin:0.14"
     }
 }
 
@@ -59,7 +59,13 @@ test {
 
     stepDefinitionRoots = ['lv/ss/at/cukes/steps']
     featureRoots = ['lv/ss/at/cukes/features']
+    plugins = ['io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm']
     tags = project.hasProperty('tags') ? ["${project.properties.tags} and (not @disabled)"] : ['@all and (not @disabled)']
+    systemProperties = ['allure.results.directory': "${project.buildDir}/allure-results"]
+
+    doFirst {
+        jvmArgs = ["-javaagent:${configurations.aspectjWeaverAgent.singleFile}"]
+    }
 }
 
 checkstyle {
