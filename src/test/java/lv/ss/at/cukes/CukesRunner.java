@@ -1,14 +1,26 @@
 package lv.ss.at.cukes;
 
+import courgette.api.CourgetteOptions;
+import courgette.api.CourgetteRunLevel;
+import courgette.api.junit.Courgette;
 import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        features = "src/test/resources/lv/ss/at/cukes/features",
-        glue = "classpath:lv/ss/at/cukes/steps",
-        plugin = "pretty"
-)
+@RunWith(Courgette.class)
+@CourgetteOptions(
+        threads = 10,
+        runLevel = CourgetteRunLevel.SCENARIO,
+        showTestOutput = true,
+        cucumberOptions = @CucumberOptions(
+                features = "src/test/resources/lv/ss/at/cukes/features",
+                glue = "classpath:lv/ss/at/cukes/steps",
+                tags = {"@all", "not @disabled"},
+                plugin = {
+                        "pretty",
+                        "json:build/cucumber/cucumber.json",
+                        "io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm"
+                },
+                strict = true
+        ))
 public class CukesRunner {
 }

@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath "io.qameta.allure:allure-gradle:2.5"
+        classpath "net.masterthought:cucumber-reporting:3.16.0"
     }
 }
 
@@ -26,29 +27,21 @@ idea {
 }
 
 dependencies {
-    testImplementation libs.logging
-    testImplementation libs.cucumber
-    testImplementation libs.allure
+    testImplementation loggers
+    testImplementation cucumber
+    testImplementation allure
     testImplementation guice
     testImplementation junit
     testImplementation selenide
+    testImplementation courgetteJvm
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-test {
-    String cucumberTags = project.findProperty('tags') ?: "'not @incomplete'"
-    String report = project.findProperty('report') ?: 'cucumber'
-    Map reportPlugin = [
-            allure      : "--plugin io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
-            cucumber    : "--plugin json:${reporting.baseDir}/cucumber/features.json"
-    ]
-    List jvmArgList = [
-            "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
-    ] + System.properties.collect { k, v -> "-D$k=$v" }
-
-    jvmArgs = jvmArgList
+task runCukeTests(type: Test) {
+    String cucumberTags = project.findProperty('tags') ?: "not @incomplete"
+    systemProperties = ['cucumber.tags': cucumberTags]
 
     testLogging {
         showStandardStreams = true

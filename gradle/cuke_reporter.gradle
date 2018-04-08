@@ -13,8 +13,8 @@ buildscript {
 task generateCucumberReport {
     description = "Generate cucumber HTML reports"
     doLast {
-        def jsonReports = fileTree(dir: "${reporting.baseDir}/cucumber/", include: '**/*.json')
-        File reportOutputDirectory = new File("${reporting.baseDir}/cucumber")
+        def jsonReports = fileTree(dir: "${project.buildDir}/cucumber/", include: '**/*.json')
+        File reportOutputDirectory = new File("${project.buildDir}/cucumber")
 
         //Workaround for creating file names that are too long
         jsonReports.each { File file ->
@@ -29,6 +29,6 @@ task generateCucumberReport {
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
         reportBuilder.generateReports()
-        println "\nReport available on: file:///${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
+        println "\nReport available on: file://${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
     }
 }
