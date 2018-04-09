@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         runLevel = CourgetteRunLevel.SCENARIO,
         showTestOutput = true,
         cucumberOptions = @CucumberOptions(
-                features = "src/test/resources/lv/ss/at/cukes/features",
+                features = "classpath:lv/ss/at/cukes/features",
                 glue = "classpath:lv/ss/at/cukes/steps",
                 tags = {"@all", "not @disabled"},
                 plugin = {

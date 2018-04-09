@@ -6,7 +6,8 @@ ext {
     junit = 'junit:junit:4.12'
     guice = 'com.google.inject:guice:4.1.0'
     selenide = 'com.codeborne:selenide:4.11.0'
-    courgetteJvm = 'io.github.prashant-ramcharan:courgette-jvm:2.0.0'
+    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.0.0'
+    aspectjweaver = 'org.aspectj:aspectjweaver:1.9.0'
 
     cucumber = [
             "io.cucumber:cucumber-core:$cucumber_version",
@@ -18,7 +19,7 @@ ext {
             "org.slf4j:slf4j-api:1.7.25",
             "ch.qos.logback:logback-classic:1.2.3"
     ]
-    allure = [
+    allure_libs = [
             "io.qameta.allure:allure-java-commons:$allure_java_version",
             "io.qameta.allure:allure-cucumber2-jvm:$allure_java_version",
     ]

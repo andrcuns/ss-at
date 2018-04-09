@@ -3,7 +3,6 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.qameta.allure:allure-gradle:2.5"
         classpath "net.masterthought:cucumber-reporting:3.16.0"
     }
 }
@@ -17,7 +16,6 @@ apply plugin: 'idea'
 apply plugin: 'checkstyle'
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
-apply from: "${rootDir}/gradle/allure.gradle"
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
 idea {
@@ -26,22 +24,27 @@ idea {
     }
 }
 
+configurations {
+    aspectjWeaverAgent
+}
+
 dependencies {
     testImplementation loggers
     testImplementation cucumber
-    testImplementation allure
+    testImplementation allure_libs
     testImplementation guice
     testImplementation junit
     testImplementation selenide
-    testImplementation courgetteJvm
+    testImplementation courgette_jvm
+    aspectjWeaverAgent aspectjweaver
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 task runCukeTests(type: Test) {
-    String cucumberTags = project.findProperty('tags') ?: "not @incomplete"
-    systemProperties = ['cucumber.tags': cucumberTags]
+    String cucumberTags = project.findProperty('tags') ?: "@test"
+    systemProperties = ['cucumber.tags': cucumberTags, 'courgette.vmoptions': "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"]
 
     testLogging {
         showStandardStreams = true
