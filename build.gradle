@@ -4,16 +4,19 @@ buildscript {
     }
     dependencies {
         classpath "net.masterthought:cucumber-reporting:3.16.0"
+        classpath "io.qameta.allure:allure-gradle:2.5"
     }
 }
 
 repositories {
     jcenter()
+    mavenLocal()
 }
 
 apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'checkstyle'
+apply plugin: 'io.qameta.allure'
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 apply from: "${rootDir}/gradle/dependencies.gradle"
@@ -36,15 +39,20 @@ dependencies {
     testImplementation junit
     testImplementation selenide
     testImplementation courgette_jvm
-    aspectjWeaverAgent aspectjweaver
+    aspectjWeaverAgent aspectj_weaver
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-task runCukeTests(type: Test) {
-    String cucumberTags = project.findProperty('tags') ?: "@test"
-    systemProperties = ['cucumber.tags': cucumberTags, 'courgette.vmoptions': "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"]
+task runCukeTestsInParallel(type: Test) {
+    include '**/CukesRunner.class'
+
+    String cucumberTags = project.findProperty('tags') ?: "@all, not @disabled"
+    systemProperties = ['cucumber.tags'           : cucumberTags,
+                        'cucumber.plugin'        : "json:${project.buildDir}/cucumber/cucumber.json, io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm, pretty",
+                        'courgette.vmoptions'     : "-javaagent:${configurations.aspectjWeaverAgent.singleFile}",
+                        'allure.results.directory': "${project.buildDir}/allure-results"]
 
     testLogging {
         showStandardStreams = true
@@ -52,6 +60,11 @@ task runCukeTests(type: Test) {
 
     //don't take test task output from cache
     outputs.upToDateWhen { false }
+}
+
+allure {
+    version = allure_version
+    aspectjweaver = false
 }
 
 checkstyle {

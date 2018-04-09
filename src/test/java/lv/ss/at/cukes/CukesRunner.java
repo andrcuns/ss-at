@@ -8,18 +8,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(Courgette.class)
 @CourgetteOptions(
-        threads = 10,
         runLevel = CourgetteRunLevel.SCENARIO,
         showTestOutput = true,
         cucumberOptions = @CucumberOptions(
-                features = "classpath:lv/ss/at/cukes/features",
-                glue = "classpath:lv/ss/at/cukes/steps",
+                features = "src/test/resources/lv/ss/at/cukes/features",
+                glue = "lv.ss.at.cukes.steps",
                 tags = {"@all", "not @disabled"},
-                plugin = {
-                        "pretty",
-                        "json:build/cucumber/cucumber.json",
-                        "io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm"
-                },
                 strict = true
         ))
 public class CukesRunner {
