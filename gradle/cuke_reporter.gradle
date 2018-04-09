@@ -6,22 +6,19 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "net.masterthought:cucumber-reporting:3.13.0"
+        classpath "net.masterthought:cucumber-reporting:3.16.0"
     }
+}
+
+ext {
+    cucumberReportDir = "${project.buildDir}/reports/cucumber-report/"
 }
 
 task generateCucumberReport {
     description = "Generate cucumber HTML reports"
     doLast {
-        def jsonReports = fileTree(dir: "${project.buildDir}/cucumber/", include: '**/*.json')
-        File reportOutputDirectory = new File("${project.buildDir}/cucumber")
-
-        //Workaround for creating file names that are too long
-        jsonReports.each { File file ->
-            file.text = file.text.replaceAll(/"uri": [^\n\r]*"(.*)"/) { String fullMatch, String uri ->
-                "\"uri\": \"${uri.split('/').last()}\""
-            }
-        }
+        def jsonReports = fileTree(dir: cucumberReportDir, include: '**/*.json')
+        File reportOutputDirectory = new File(cucumberReportDir.toString())
 
         List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
 
@@ -29,6 +26,6 @@ task generateCucumberReport {
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
         reportBuilder.generateReports()
-        println "\nReport available on: file://${reporting.baseDir}/cucumber/cucumber-html-reports/overview-features.html"
+        println "\nReport available on: file://${cucumberReportDir}/cucumber-html-reports/overview-features.html"
     }
 }

@@ -45,21 +45,43 @@ dependencies {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-task runCukeTestsInParallel(type: Test) {
+String cucumberTags = project.findProperty('tags') ?: "@all and (not @disabled)"
+String javaagent = "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"
+List cucumberPlugins = ["json:${cucumberReportDir}/cucumber.json", "io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm"]
+
+task runCukeTests(type: Test) {
     include '**/CukesRunner.class'
 
-    String cucumberTags = project.findProperty('tags') ?: "@all, not @disabled"
-    systemProperties = ['cucumber.tags'           : cucumberTags,
-                        'cucumber.plugin'        : "json:${project.buildDir}/cucumber/cucumber.json, io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm, pretty",
-                        'courgette.vmoptions'     : "-javaagent:${configurations.aspectjWeaverAgent.singleFile}",
-                        'allure.results.directory': "${project.buildDir}/allure-results"]
+    String cucumberOptions = "--tags '${cucumberTags}' ${(cucumberPlugins + 'pretty').collect { "--plugin $it" }.join(" ")}"
+    systemProperties = ['cucumber.options': cucumberOptions]
+    jvmArgs = [javaagent]
 
     testLogging {
         showStandardStreams = true
     }
 
-    //don't take test task output from cache
     outputs.upToDateWhen { false }
+}
+
+task runCukeTestsInParallel(type: Test) {
+    include '**/CukesParallelRunner.class'
+
+    systemProperties = ['cucumber.tags'           : cucumberTags,
+                        'cucumber.plugin'         : cucumberPlugins.join(", "),
+                        'courgette.vmoptions'     : javaagent,
+                        'allure.results.directory': "${project.buildDir}/reports/allure-results"]
+
+    testLogging {
+        showStandardStreams = true
+    }
+
+    outputs.upToDateWhen { false }
+}
+
+afterEvaluate {
+    tasks.withType(Test) {
+        finalizedBy allureReport, generateCucumberReport
+    }
 }
 
 allure {
