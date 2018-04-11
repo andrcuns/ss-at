@@ -10,15 +10,11 @@ buildscript {
     }
 }
 
-ext {
-    cucumberReportDir = "${project.buildDir}/reports/cucumber-report/"
-}
-
 task generateCucumberReport {
     description = "Generate cucumber HTML reports"
     doLast {
-        def jsonReports = fileTree(dir: cucumberReportDir, include: '**/*.json')
-        File reportOutputDirectory = new File(cucumberReportDir.toString())
+        def jsonReports = fileTree(dir: cukeReportDir, include: '**/*.json')
+        File reportOutputDirectory = new File(cukeReportDir.toString())
 
         List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
 
@@ -26,6 +22,6 @@ task generateCucumberReport {
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
         reportBuilder.generateReports()
-        println "\nReport available on: file://${cucumberReportDir}/cucumber-html-reports/overview-features.html"
+        logger.quiet("Report available on: file://${cukeReportDir}/cucumber-html-reports/overview-features.html")
     }
 }

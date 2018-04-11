@@ -23,6 +23,10 @@ In parallel:
 * [Allure](https://github.com/allure-framework/allure2) - allure reports
 * [Courgette-JVM](https://github.com/prashant-ramcharan/courgette-jvm) - courgette-jvm report for parallel execution
 
-Cucumber and allure report path will be visible in console output after test task execution
+Cucumber report path will be visible in console output after test task execution.   
+Allure report can be opened with following command:
+```bash
+./gradlew allureServe
+```
 
 Current allure report published by travis is available through [Github Pages](https://andrcuns.github.io/)

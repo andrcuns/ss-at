@@ -7,20 +7,20 @@ import static java.lang.System.getProperty;
 public enum DriverSetupImplementations {
     CHROME {
         @Override
-        void setUpDriver() {
+        void setBrowser() {
             Configuration.browser = "chrome";
         }
     },
     FIREFOX {
         @Override
-        void setUpDriver() {
-            Configuration.browser = "marionette";
+        void setBrowser() {
+            Configuration.browser = "firefox";
         }
     };
 
-    abstract void setUpDriver();
+    abstract void setBrowser();
 
-    public static void setUpCorrectDriver() {
-        valueOf(getProperty("browser", "chrome").toUpperCase()).setUpDriver();
+    public static void setUpWebBrowser() {
+        valueOf(getProperty("browser", "chrome").toUpperCase()).setBrowser();
     }
 }

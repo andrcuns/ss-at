@@ -1,19 +1,12 @@
 ext {
-    cucumber_version = '2.4.0'
     allure_version = '2.6.0'
 
-    junit = 'junit:junit:4.12'
-    guice = 'com.google.inject:guice:4.1.0'
-    selenide = 'com.codeborne:selenide:4.11.0'
-    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.0.0'
+    guice = 'com.google.inject:guice:4.2.0'
+    selenide = 'com.codeborne:selenide:4.11.1'
+    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.2.0'
     aspectj_weaver = 'org.aspectj:aspectjweaver:1.9.0'
+    cucumber_guice = "io.cucumber:cucumber-guice:2.4.0"
 
-    cucumber = [
-            "io.cucumber:cucumber-core:$cucumber_version",
-            "io.cucumber:cucumber-java:$cucumber_version",
-            "io.cucumber:cucumber-junit:$cucumber_version",
-            "io.cucumber:cucumber-guice:$cucumber_version"
-    ]
     loggers = [
             "org.slf4j:slf4j-api:1.7.25",
             "ch.qos.logback:logback-classic:1.2.3"
