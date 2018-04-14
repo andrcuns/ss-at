@@ -44,24 +44,25 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 String cucumberTags = project.findProperty('tags') ?: 'not @disabled'
+String javaagent = "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"
 project.ext.cukeReportDir = ''
 
 task runCukeTests(type: Test) {
     include '**/CukesRunner.class'
+    jvmArgs javaagent
     systemProperties = ['cucumber.options': "--tags '${cucumberTags}'"] + System.properties as Map
     doLast { cukeReportDir = "${project.buildDir}/reports/cucumber-report" }
 }
 
 task runCukeTestsInParallel(type: Test) {
     include '**/CukesParallelRunner.class'
-    systemProperties = ['cucumber.tags': cucumberTags] + System.properties as Map
+    systemProperties = ['cucumber.tags': cucumberTags, 'courgette.vmoptions': javaagent] + System.properties as Map
     doLast { cukeReportDir = "${project.buildDir}/reports/courgette-report/data" }
 }
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 
 tasks.withType(Test) {
-    jvmArgs "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"
     systemProperty 'allure.results.directory', "${project.buildDir}/reports/allure-results"
 
     testLogging.showStandardStreams = true

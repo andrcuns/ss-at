@@ -12,7 +12,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
 
-script: ./gradlew clean runCukeTests -Dselenide.headless=true
+script: ./gradlew clean runCukeTestsInParallel -Dselenide.headless=true
 
 deploy:
   provider: pages
