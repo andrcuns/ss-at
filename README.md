@@ -5,26 +5,28 @@ A sample UI testing project using following tech stack:
 * [Guice](https://github.com/google/guice) - dependency injection
 * [Cucumber](https://cucumber.io/) - BDD test specification
 * [Gradle](https://github.com/gradle/gradle) - build tool
+* [Courgette-JVM](https://github.com/prashant-ramcharan/courgette-jvm) - parallel execution for cucumber
 
 ## Running tests from command line
-Tests can be executed with following command:
+Tests can be executed with following commands.
+In sequence:
 ```bash
-./gradlew clean test -Preport=cucumber|allure
+./gradlew clean runCukeTests
 ```
-Default report is `cucumber`.
+In parallel:
+```bash
+./gradlew clean runCukeTestsInParallel
+```
 
 ## Reporting
 * [Cucumber](https://github.com/damianszczepanik/cucumber-reporting) - prettified native cucumber report
 * [Allure](https://github.com/allure-framework/allure2) - allure reports
+* [Courgette-JVM](https://github.com/prashant-ramcharan/courgette-jvm) - courgette-jvm report for parallel execution
+
+Cucumber report path will be visible in console output after test task execution.   
+Allure report can be opened with following command:
+```bash
+./gradlew allureServe
+```
 
 Current allure report published by travis is available through [Github Pages](https://andrcuns.github.io/)
-
-### Generating and opening reports   
-To generate and open allure report after running test with allure report type following command can be used:
-```bash
-./gradlew downloadAllure allureServe
-```
-To generate cucumber html report after running tests with cucumber report type following command can be used:
-```bash
-./gradlew generateCucumberReport
-```

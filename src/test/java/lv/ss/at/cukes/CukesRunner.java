@@ -7,8 +7,14 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/resources/lv/ss/at/cukes/features",
-        glue = "classpath:lv/ss/at/cukes/steps",
-        plugin = "pretty"
+        glue = "lv.ss.at.cukes.steps",
+        tags = "not @disabled",
+        plugin = {
+                "io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
+                "json:build/reports/cucumber-report/cucumber.json",
+                "pretty"
+        },
+        strict = true
 )
 public class CukesRunner {
 }

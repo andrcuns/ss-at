@@ -16,7 +16,6 @@ target/
 
 ### Ignore Gradle files
 .gradle
-.gradle/
 
 ### Ignore allure files
 .allure/

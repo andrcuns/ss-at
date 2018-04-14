@@ -3,20 +3,21 @@ buildscript {
         jcenter()
     }
     dependencies {
+        classpath "net.masterthought:cucumber-reporting:3.16.0"
         classpath "io.qameta.allure:allure-gradle:2.5"
     }
 }
 
 repositories {
     jcenter()
+    mavenLocal()
 }
 
 apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'checkstyle'
+apply plugin: 'io.qameta.allure'
 
-apply from: "${rootDir}/gradle/cuke_reporter.gradle"
-apply from: "${rootDir}/gradle/allure.gradle"
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
 idea {
@@ -25,37 +26,56 @@ idea {
     }
 }
 
+configurations {
+    aspectjWeaverAgent
+}
+
 dependencies {
-    testImplementation libs.logging
-    testImplementation libs.cucumber
-    testImplementation libs.allure
+    testImplementation loggers
+    testImplementation allure_libs
     testImplementation guice
-    testImplementation junit
+    testImplementation cucumber_guice
     testImplementation selenide
+    testImplementation courgette_jvm
+    aspectjWeaverAgent aspectj_weaver
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-test {
-    String cucumberTags = project.findProperty('tags') ?: "'not @incomplete'"
-    String report = project.findProperty('report') ?: 'cucumber'
-    Map reportPlugin = [
-            allure      : "--plugin io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
-            cucumber    : "--plugin json:${reporting.baseDir}/cucumber/features.json"
-    ]
-    List jvmArgList = [
-            "-Dcucumber.options=--tags ${cucumberTags} ${reportPlugin[report]} --plugin pretty"
-    ] + System.properties.collect { k, v -> "-D$k=$v" }
+String cucumberTags = project.findProperty('tags') ?: 'not @disabled'
+String javaagent = "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"
+project.ext.cukeReportDir = ''
 
-    jvmArgs = jvmArgList
+task runCukeTests(type: Test) {
+    include '**/CukesRunner.class'
+    jvmArgs javaagent
+    systemProperties = ['cucumber.options': "--tags '${cucumberTags}'"] + System.properties as Map
+    doLast { cukeReportDir = "${project.buildDir}/reports/cucumber-report" }
+}
 
-    testLogging {
-        showStandardStreams = true
-    }
+task runCukeTestsInParallel(type: Test) {
+    include '**/CukesParallelRunner.class'
+    systemProperties = ['cucumber.tags': cucumberTags, 'courgette.vmoptions': javaagent] + System.properties as Map
+    doLast { cukeReportDir = "${project.buildDir}/reports/courgette-report/data" }
+}
 
-    //don't take test task output from cache
+apply from: "${rootDir}/gradle/cuke_reporter.gradle"
+
+tasks.withType(Test) {
+    systemProperty 'allure.results.directory', "${project.buildDir}/reports/allure-results"
+
+    testLogging.showStandardStreams = true
     outputs.upToDateWhen { false }
+
+    afterEvaluate {
+        finalizedBy allureReport, generateCucumberReport
+    }
+}
+
+allure {
+    version = allure_version
+    aspectjweaver = false
 }
 
 checkstyle {
