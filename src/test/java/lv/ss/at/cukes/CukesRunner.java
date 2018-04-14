@@ -11,7 +11,8 @@ import org.junit.runner.RunWith;
         tags = "not @disabled",
         plugin = {
                 "io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
-                "json:build/reports/cucumber-report/cucumber.json"
+                "json:build/reports/cucumber-report/cucumber.json",
+                "pretty"
         },
         strict = true
 )
