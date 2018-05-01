@@ -31,6 +31,9 @@ reports.each { String type, String reportPath ->
             ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
             reportBuilder.generateReports()
             logger.quiet("Report available on: file://${reportingDir}/cucumber-html-reports/overview-features.html")
+            if (type == 'Parallel') {
+                logger.quiet("Courgette report: file://${reportingDir}/courgette-report/index.html")
+            }
         }
     }
 }
