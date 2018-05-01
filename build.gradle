@@ -34,8 +34,8 @@ dependencies {
     implementation loggers
     implementation guice
     implementation selenide
-    testImplementation allure_libs
-    testImplementation cucumber_guice
+    implementation cucumber
+    implementation allure_libs
     testImplementation courgette_jvm
     testImplementation jaxb
     aspectjWeaverAgent aspectj_weaver
