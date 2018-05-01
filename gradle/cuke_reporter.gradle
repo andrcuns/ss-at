@@ -1,5 +1,5 @@
-import net.masterthought.cucumber.ReportBuilder
 import net.masterthought.cucumber.Configuration
+import net.masterthought.cucumber.ReportBuilder
 
 buildscript {
     repositories {
@@ -10,18 +10,27 @@ buildscript {
     }
 }
 
-task generateCucumberReport {
-    description = "Generate cucumber HTML reports"
-    doLast {
-        def jsonReports = fileTree(dir: cukeReportDir, include: '**/*.json')
-        File reportOutputDirectory = new File(cukeReportDir.toString())
+project.ext.reportDir = "${project.buildDir}/reports"
 
-        List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
+Map reports = [
+        'Sequential': "${reportDir}/cucumber-report",
+        'Parallel'  : "${reportDir}/courgette-report/data"
+]
 
-        def configuration = new Configuration(reportOutputDirectory, "ss-at")
+reports.each { String type, String reportPath ->
+    tasks.create("generate${type}CucumberReport") {
+        description = "Generate cucumber HTML reports"
+        doLast {
+            def jsonReports = fileTree(dir: reportPath, include: '**/*.json')
+            File reportOutputDirectory = new File(reportDir)
 
-        ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
-        reportBuilder.generateReports()
-        logger.quiet("Report available on: file://${cukeReportDir}/cucumber-html-reports/overview-features.html")
+            List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
+
+            def configuration = new Configuration(reportOutputDirectory, "ss-at")
+
+            ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
+            reportBuilder.generateReports()
+            logger.quiet("Report available on: file://${reportDir}/cucumber-html-reports/overview-features.html")
+        }
     }
 }

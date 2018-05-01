@@ -1,6 +1,5 @@
 package lv.ss.at.configuration;
 
-import com.codeborne.selenide.Configuration;
 import com.google.inject.AbstractModule;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
@@ -10,9 +9,6 @@ public class GuiceModule extends AbstractModule {
 
     @Override
     public void configure() {
-        Configuration.startMaximized = false;
-        Configuration.browserSize = "1920x1080";
-
         routeJulToSlf();
         setUpWebBrowser();
     }
