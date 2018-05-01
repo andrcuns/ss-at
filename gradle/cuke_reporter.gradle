@@ -10,11 +10,11 @@ buildscript {
     }
 }
 
-project.ext.reportDir = "${project.buildDir}/reports"
+project.ext.reportingDir = "${project.buildDir}/reports"
 
 Map reports = [
-        'Sequential': "${reportDir}/cucumber-report",
-        'Parallel'  : "${reportDir}/courgette-report/data"
+        'Sequential': "${reportingDir}/cucumber-report",
+        'Parallel'  : "${reportingDir}/courgette-report/data"
 ]
 
 reports.each { String type, String reportPath ->
@@ -22,7 +22,7 @@ reports.each { String type, String reportPath ->
         description = "Generate cucumber HTML reports"
         doLast {
             def jsonReports = fileTree(dir: reportPath, include: '**/*.json')
-            File reportOutputDirectory = new File(reportDir)
+            File reportOutputDirectory = new File(reportingDir)
 
             List<String> jsonReportFiles = jsonReports.collect { "${it.absolutePath}".toString() } as List<String>
 
@@ -30,7 +30,7 @@ reports.each { String type, String reportPath ->
 
             ReportBuilder reportBuilder = new ReportBuilder(jsonReportFiles, configuration)
             reportBuilder.generateReports()
-            logger.quiet("Report available on: file://${reportDir}/cucumber-html-reports/overview-features.html")
+            logger.quiet("Report available on: file://${reportingDir}/cucumber-html-reports/overview-features.html")
         }
     }
 }

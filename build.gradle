@@ -66,8 +66,6 @@ task runCukeTestsInParallel(type: Test) {
 }
 
 tasks.withType(Test) {
-    systemProperty 'allure.results.directory', "${reportDir}/allure-results"
-
     testLogging.showStandardStreams = true
     outputs.upToDateWhen { false }
 
@@ -76,6 +74,8 @@ tasks.withType(Test) {
 
 allure {
     version = allure_version
+    resultsDir = new File("${reportingDir}/allure-results")
+    reportDir = new File("${reportingDir}/allure-reports")
     aspectjweaver = false
 }
 
