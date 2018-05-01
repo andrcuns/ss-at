@@ -75,7 +75,7 @@ tasks.withType(Test) {
 allure {
     version = allure_version
     resultsDir = new File("${reportingDir}/allure-results")
-    reportDir = new File("${reportingDir}/allure-reports")
+    reportDir = new File("${reportingDir}/allure-report")
     aspectjweaver = false
 }
 
