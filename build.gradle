@@ -22,7 +22,7 @@ apply from: "${rootDir}/gradle/dependencies.gradle"
 
 idea {
     project {
-        languageLevel = "1.8"
+        languageLevel = "1.9"
     }
 }
 
@@ -37,11 +37,12 @@ dependencies {
     testImplementation cucumber_guice
     testImplementation selenide
     testImplementation courgette_jvm
+    testImplementation jaxb
     aspectjWeaverAgent aspectj_weaver
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.9
+targetCompatibility = 1.9
 
 String cucumberTags = project.findProperty('tags') ?: 'not @disabled'
 String javaagent = "-javaagent:${configurations.aspectjWeaverAgent.singleFile}"

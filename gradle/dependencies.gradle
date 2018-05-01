@@ -3,10 +3,14 @@ ext {
 
     guice = 'com.google.inject:guice:4.2.0'
     selenide = 'com.codeborne:selenide:4.11.1'
-    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.2.0'
+    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.3.0-beta'
     aspectj_weaver = 'org.aspectj:aspectjweaver:1.9.0'
     cucumber_guice = "io.cucumber:cucumber-guice:2.4.0"
-
+    jaxb = [
+            'com.sun.xml.bind:jaxb-core:2.3.0',
+            'javax.xml.bind:jaxb-api:2.3.0',
+            'com.sun.xml.bind:jaxb-impl:2.3.0'
+    ]
     loggers = [
             "org.slf4j:slf4j-api:1.7.25",
             "ch.qos.logback:logback-classic:1.2.3"
