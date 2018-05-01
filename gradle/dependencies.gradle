@@ -1,5 +1,7 @@
 ext {
     allure_version = '2.6.0'
+    slf4j_version = '1.7.25'
+    jaxb_version = '2.3.0'
 
     guice = 'com.google.inject:guice:4.2.0'
     selenide = 'com.codeborne:selenide:4.11.1'
@@ -7,12 +9,13 @@ ext {
     aspectj_weaver = 'org.aspectj:aspectjweaver:1.9.0'
     cucumber_guice = "io.cucumber:cucumber-guice:2.4.0"
     jaxb = [
-            'com.sun.xml.bind:jaxb-core:2.3.0',
-            'javax.xml.bind:jaxb-api:2.3.0',
-            'com.sun.xml.bind:jaxb-impl:2.3.0'
+            "com.sun.xml.bind:jaxb-core:$jaxb_version",
+            "javax.xml.bind:jaxb-api:$jaxb_version",
+            "com.sun.xml.bind:jaxb-impl:$jaxb_version"
     ]
     loggers = [
-            "org.slf4j:slf4j-api:1.7.25",
+            "org.slf4j:slf4j-api:$slf4j_version",
+            "org.slf4j:jul-to-slf4j:$slf4j_version",
             "ch.qos.logback:logback-classic:1.2.3"
     ]
     allure_libs = [

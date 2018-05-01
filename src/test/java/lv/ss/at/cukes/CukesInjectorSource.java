@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.Stage;
 import cucumber.api.guice.CucumberModules;
 import cucumber.runtime.java.guice.InjectorSource;
-import lv.ss.at.GuiceModule;
+import lv.ss.at.configuration.GuiceModule;
 
 public class CukesInjectorSource implements InjectorSource {
     @Override

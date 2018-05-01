@@ -1,4 +1,4 @@
-package lv.ss.at.selenium;
+package lv.ss.at.configuration;
 
 import com.codeborne.selenide.Configuration;
 

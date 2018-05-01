@@ -31,11 +31,11 @@ configurations {
 }
 
 dependencies {
-    testImplementation loggers
+    implementation loggers
+    implementation guice
+    implementation selenide
     testImplementation allure_libs
-    testImplementation guice
     testImplementation cucumber_guice
-    testImplementation selenide
     testImplementation courgette_jvm
     testImplementation jaxb
     aspectjWeaverAgent aspectj_weaver
