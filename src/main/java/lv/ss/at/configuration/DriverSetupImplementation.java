@@ -14,18 +14,18 @@ public enum DriverSetupImplementation {
         @Override
         void setBrowser() {
             chromedriver().setup();
-            configureBrowser.accept("chrome");
+            CONFIGURE_BROWSER.accept("chrome");
         }
     },
     FIREFOX {
         @Override
         void setBrowser() {
             firefoxdriver().setup();
-            configureBrowser.accept("firefox");
+            CONFIGURE_BROWSER.accept("firefox");
         }
     };
 
-    private static final Consumer<String> configureBrowser = (browser) -> {
+    private static final Consumer<String> CONFIGURE_BROWSER = (browser) -> {
         Configuration.startMaximized = false;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = browser;

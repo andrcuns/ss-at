@@ -3,7 +3,7 @@ package lv.ss.at.selenium.pages.wrappers;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
-import static java.lang.Long.valueOf;
+import static java.lang.Long.parseLong;
 
 public class AdvertisementItemWrapper implements Comparable {
 
@@ -22,7 +22,7 @@ public class AdvertisementItemWrapper implements Comparable {
     }
 
     public long getItemPrice() {
-        return valueOf(selenideElement.findElement(price).getText().replace(" €", ""));
+        return parseLong(selenideElement.findElement(price).getText().replace(" €", ""));
     }
 
 
