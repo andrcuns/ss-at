@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
         glue = "lv.ss.at.cukes.steps",
         tags = "not @disabled",
         plugin = {
+                "lv.ss.at.allure.AllureScreenshotPublisher",
                 "io.qameta.allure.cucumber2jvm.AllureCucumber2Jvm",
                 "json:build/reports/cucumber-report/cucumber.json",
                 "pretty"
