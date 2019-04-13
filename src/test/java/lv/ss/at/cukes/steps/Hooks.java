@@ -2,6 +2,7 @@ package lv.ss.at.cukes.steps;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -11,7 +12,13 @@ import static io.qameta.allure.Allure.getLifecycle;
 
 public class Hooks {
 
-    @After
+    @Before("@blank")
+    public void beforeBlank() {}
+
+    @After("@blank")
+    public void afterBlank() {}
+
+    @After("not @blank")
     public void cleanUp(Scenario scenario) {
         if (scenario.isFailed()) {
             byte[] screenShot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
