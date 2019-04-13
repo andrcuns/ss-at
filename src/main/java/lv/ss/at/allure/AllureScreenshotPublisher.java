@@ -1,9 +1,9 @@
 package lv.ss.at.allure;
 
 import cucumber.api.Result;
+import cucumber.api.event.EventListener;
 import cucumber.api.event.EventPublisher;
 import cucumber.api.event.TestStepFinished;
-import cucumber.api.formatter.Formatter;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 import org.openqa.selenium.OutputType;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class AllureScreenshotPublisher implements Formatter {
+public class AllureScreenshotPublisher implements EventListener {
     private final Logger log = LoggerFactory.getLogger(AllureScreenshotPublisher.class);
     private final AllureLifecycle allureLifecycle;
 
@@ -28,7 +28,7 @@ public class AllureScreenshotPublisher implements Formatter {
 
     private void handleTestStepFinished(final TestStepFinished event) {
         if (event.result.getStatus() == Result.Type.FAILED) {
-            log.error("Step '{}' failed! Attaching screen shot...", event.testStep.getStepText());
+            log.error("Step '{}' failed! Attaching screen shot...", event.testStep.getCodeLocation());
 
             byte[] screenShot = ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
             allureLifecycle.addAttachment("Failure Image", "image/png", "png", screenShot);

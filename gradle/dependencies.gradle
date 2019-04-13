@@ -2,11 +2,11 @@ ext {
     allure_version = '2.10.0'
     slf4j_version = '1.7.25'
     jaxb_version = '2.3.0'
-    cucumber_version = '2.4.0'
+    cucumber_version = '4.3.0'
 
     guice = 'com.google.inject:guice:4.2.0'
     selenide = 'com.codeborne:selenide:5.2.2'
-    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.3.0-beta'
+    courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:3.2.0'
     aspectj_weaver = 'org.aspectj:aspectjweaver:1.9.2'
     cucumber = [
             "io.cucumber:cucumber-core:$cucumber_version",
@@ -26,6 +26,6 @@ ext {
     ]
     allure_libs = [
             "io.qameta.allure:allure-java-commons:$allure_version",
-            "io.qameta.allure:allure-cucumber2-jvm:$allure_version",
+            "io.qameta.allure:allure-cucumber4-jvm:$allure_version",
     ]
 }

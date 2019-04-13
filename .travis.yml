@@ -2,7 +2,7 @@ sudo: required
 
 language: java
 jdk:
-  - oraclejdk9
+  - oraclejdk10
 
 addons:
   chrome: stable
@@ -15,5 +15,5 @@ before_script:
   - sleep 3
 
 script:
-  - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then ./gradlew clean checkQualityTest checkQualityMain; fi
-  - ./gradlew clean runCukeTestsInParallel -Dselenide.headless=true
+  - ./gradlew clean checkQualityTest checkQualityMain
+  - ./gradlew clean runCukeTest -Dselenide.headless=true
