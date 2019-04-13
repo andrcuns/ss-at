@@ -14,11 +14,6 @@ ext {
             "io.cucumber:cucumber-junit:$cucumber_version",
             "io.cucumber:cucumber-guice:$cucumber_version"
     ]
-    jaxb = [
-            "com.sun.xml.bind:jaxb-core:$jaxb_version",
-            "javax.xml.bind:jaxb-api:$jaxb_version",
-            "com.sun.xml.bind:jaxb-impl:$jaxb_version"
-    ]
     loggers = [
             "org.slf4j:slf4j-api:$slf4j_version",
             "org.slf4j:jul-to-slf4j:$slf4j_version",

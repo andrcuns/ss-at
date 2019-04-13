@@ -42,7 +42,6 @@ dependencies {
     implementation cucumber
     implementation allure_libs
     testImplementation courgette_jvm
-    testImplementation jaxb
     aspectjWeaverAgent aspectj_weaver
 }
 
