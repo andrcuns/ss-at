@@ -2,7 +2,7 @@ sudo: required
 
 language: java
 jdk:
-  - oraclejdk9
+  - openjdk11
 
 addons:
   chrome: stable
@@ -15,17 +15,5 @@ before_script:
   - sleep 3
 
 script:
-  - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then ./gradlew clean checkQualityTest checkQualityMain; fi
-  - ./gradlew clean runCukeTestsInParallel -Dselenide.headless=true
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: build/reports/allure-report
-  repo: andrcuns/andrcuns.github.io
-  target_branch: master
-
-branches:
-  only:
-    - master
+  - ./gradlew clean checkQualityTest checkQualityMain
+  - ./gradlew clean runCukeTest -Dselenide.headless=true

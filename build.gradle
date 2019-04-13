@@ -5,9 +5,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "net.masterthought:cucumber-reporting:3.16.0"
-        classpath "io.qameta.allure:allure-gradle:2.5"
-        classpath 'ru.vyarus:gradle-quality-plugin:3.0.0'
+        classpath "net.masterthought:cucumber-reporting:4.6.0"
+        classpath "io.qameta.allure:allure-gradle:2.7.0"
+        classpath 'ru.vyarus:gradle-quality-plugin:3.4.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
     }
 }
 
@@ -20,12 +21,13 @@ apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'ru.vyarus.quality'
 apply plugin: 'io.qameta.allure'
+apply plugin: 'com.github.ben-manes.versions'
 
 apply from: "${rootDir}/gradle/dependencies.gradle"
 
 idea {
     project {
-        languageLevel = "1.9"
+        languageLevel = "11"
     }
 }
 
@@ -40,12 +42,11 @@ dependencies {
     implementation cucumber
     implementation allure_libs
     testImplementation courgette_jvm
-    testImplementation jaxb
     aspectjWeaverAgent aspectj_weaver
 }
 
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+sourceCompatibility = 11
+targetCompatibility = 11
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 
@@ -68,6 +69,7 @@ task runCukeTestsInParallel(type: Test) {
 tasks.withType(Test) {
     testLogging.showStandardStreams = true
     outputs.upToDateWhen { false }
+    systemProperties.remove("java.endorsed.dirs")
 
     afterEvaluate { finalizedBy allureReport }
 }
@@ -80,8 +82,5 @@ allure {
 }
 
 quality {
-    checkstyleVersion = '8.8'
-    pmdVersion = '5.8.1'
-    spotbugsVersion = '3.1.3'
-    findbugs = false
+    pmd = false
 }

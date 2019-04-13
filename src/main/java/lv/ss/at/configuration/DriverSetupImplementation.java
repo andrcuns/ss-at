@@ -13,7 +13,7 @@ public enum DriverSetupImplementation {
     CHROME {
         @Override
         void setBrowser() {
-            chromedriver().setup();
+            chromedriver().version("73.0.3683.68").setup();
             CONFIGURE_BROWSER.accept("chrome");
         }
     },

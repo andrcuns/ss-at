@@ -10,6 +10,6 @@ import lv.ss.at.configuration.GuiceModule;
 public class CukesInjectorSource implements InjectorSource {
     @Override
     public Injector getInjector() {
-        return Guice.createInjector(Stage.PRODUCTION, CucumberModules.SCENARIO, new GuiceModule());
+        return Guice.createInjector(Stage.PRODUCTION, CucumberModules.createScenarioModule(), new GuiceModule());
     }
 }
