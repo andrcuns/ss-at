@@ -27,7 +27,7 @@ apply from: "${rootDir}/gradle/dependencies.gradle"
 
 idea {
     project {
-        languageLevel = "10"
+        languageLevel = "11"
     }
 }
 
@@ -45,8 +45,8 @@ dependencies {
     aspectjWeaverAgent aspectj_weaver
 }
 
-sourceCompatibility = 10
-targetCompatibility = 10
+sourceCompatibility = 11
+targetCompatibility = 11
 
 apply from: "${rootDir}/gradle/cuke_reporter.gradle"
 
