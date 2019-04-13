@@ -28,5 +28,3 @@ Allure report can be opened with following command:
 ```bash
 ./gradlew allureServe
 ```
-
-Current allure report published by travis is available through [Github Pages](https://andrcuns.github.io/)
