@@ -5,9 +5,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "net.masterthought:cucumber-reporting:3.16.0"
-        classpath "io.qameta.allure:allure-gradle:2.5"
-        classpath 'ru.vyarus:gradle-quality-plugin:3.0.0'
+        classpath "net.masterthought:cucumber-reporting:4.6.0"
+        classpath "io.qameta.allure:allure-gradle:2.7.0"
+        classpath 'ru.vyarus:gradle-quality-plugin:3.4.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
     }
 }
 
@@ -20,6 +21,7 @@ apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'ru.vyarus.quality'
 apply plugin: 'io.qameta.allure'
+apply plugin: 'com.github.ben-manes.versions'
 
 apply from: "${rootDir}/gradle/dependencies.gradle"
 

@@ -1,13 +1,13 @@
 ext {
-    allure_version = '2.6.0'
+    allure_version = '2.10.0'
     slf4j_version = '1.7.25'
     jaxb_version = '2.3.0'
     cucumber_version = '2.4.0'
 
     guice = 'com.google.inject:guice:4.2.0'
-    selenide = 'com.codeborne:selenide:4.11.1'
+    selenide = 'com.codeborne:selenide:5.2.2'
     courgette_jvm = 'io.github.prashant-ramcharan:courgette-jvm:2.3.0-beta'
-    aspectj_weaver = 'org.aspectj:aspectjweaver:1.9.0'
+    aspectj_weaver = 'org.aspectj:aspectjweaver:1.9.2'
     cucumber = [
             "io.cucumber:cucumber-core:$cucumber_version",
             "io.cucumber:cucumber-java:$cucumber_version",
