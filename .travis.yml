@@ -17,15 +17,3 @@ before_script:
 script:
   - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then ./gradlew clean checkQualityTest checkQualityMain; fi
   - ./gradlew clean runCukeTestsInParallel -Dselenide.headless=true
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: build/reports/allure-report
-  repo: andrcuns/andrcuns.github.io
-  target_branch: master
-
-branches:
-  only:
-    - master
