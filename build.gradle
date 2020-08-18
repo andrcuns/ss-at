@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "net.masterthought:cucumber-reporting:4.6.0"
+        classpath "net.masterthought:cucumber-reporting:5.3.1"
         classpath "io.qameta.allure:allure-gradle:2.7.0"
         classpath 'ru.vyarus:gradle-quality-plugin:3.4.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
